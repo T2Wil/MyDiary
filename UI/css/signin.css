@@ -1,0 +1,26 @@
+@import url("./signup.css");
+form a{
+    font-family: Oswald;
+    font-weight: lighter;
+    font-size: 1.5rem;
+    color: rgba(126,71,41,1);
+    margin-left: 53%;
+    position: relative;
+    top:10px;
+
+}
+.form-signup p{
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5rem;;    
+}
+.icon-small,form input,.title{
+    margin-left: 38%;
+    width: 50%;
+}
+@media(max-width:480px){
+    form a{
+        margin-left: 45%;
+        font-size: 1.3rem;
+    }
+}
