@@ -1,0 +1,89 @@
+@import url("./index.css");
+
+.form-signup{
+    margin-left: 8%;
+    margin-right: 20%;
+    margin-top: 2%;
+    height: 100%;
+}
+.title{
+    font-family: Oswald;
+    font-size: 3rem;
+    font-weight: bold;
+    color: #7E4729;
+}
+input{
+    display: block;
+    height: 10%;
+    background: none;
+    border: solid 2px #7E4729;
+}
+form input{
+    font-family: Oswald;
+    font-size: 0.875rem;
+    color: black;
+    background: white;
+}
+form .icon-small{
+    position: relative;
+    top: 2.5rem; 
+    left: 25%;
+}
+
+.icon-small,form input,.title{
+    margin-left: 38%;
+    width: 50%;
+}
+form .btn{
+    background: #7E4729;
+    margin-top: 1.25rem;
+}
+.form-signup .title{
+    position: relative;
+    left: 20%;
+}
+.form-signup p{
+    text-align: center;
+    font-weight: bold;
+    font-size: 80%;    
+}
+.form-signup p{
+    position: relative;
+    left: 3.8rem;
+}
+.form-signup p a{
+    color: #7E4729;
+}
+.form-signup #submit:hover{
+    cursor: pointer;
+}
+p{
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.25rem;    
+}
+.form-signup p{
+    position: relative;
+    left: 13%;
+}
+.form-signup p a{
+    color: #7E4729;
+}
+footer{
+    background: white;
+    margin:0px;
+}
+@media(max-width:480px){
+    html{
+        font-size: 12px;
+    }
+    .form-signup{
+        height: 80%;
+        position: relative;
+        right: 5%;
+    }
+    .form-signup .title{
+        position: relative;
+        left: 7%;
+    }
+}
