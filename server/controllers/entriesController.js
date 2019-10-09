@@ -67,4 +67,20 @@ export const viewSpecificEntry = (req, res) => {
   }
 };
 export const deleteEntry = (req, res) => {
+  const { entryId } = req.params;
+  const deletedEntry = entry.deleteEntry(entryId);
+  if (deletedEntry) {
+    res.status(200).json({
+      status: res.statusCode,
+      data: {
+        message: 'entry successfully deleted',
+      },
+
+    });
+  } else {
+    res.status(404).json({
+      status: res.statusCode,
+      error: 'Entry doesn\'t exists',
+    });
+  }
 };
