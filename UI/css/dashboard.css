@@ -1,0 +1,64 @@
+@import url("./index.css");
+input{
+    color: black;
+}
+header .nav .logo{
+    padding-top: 0.4rem;
+}
+.nav ul{
+    display: flex;
+    position: relative;
+    left: 63%;
+}
+.nav ul li{
+    margin-left: -17%;
+}
+.search input{
+    position: relative;
+    left: 35%;
+    width: 33%;
+    border: none;
+    background: white;
+    text-align: center;
+    padding-left: 3rem;
+    opacity: 0.7;
+    z-index: inherit;
+}
+.search img{
+    position: relative;
+    right: 15%;
+    top: 2.7rem;
+    z-index: 1;
+}
+.add-entry{
+    position: relative;
+    left: 50%;
+    margin: 3rem auto;
+}
+.card-title{
+    background: white;
+}
+.card-footer{
+    display: flex;
+}
+.card-footer ul{
+    display: flex;
+    position: relative;
+    left: -12%;
+}
+.card-footer ul li{
+    margin-left: -26%;;
+}
+.cards .card-title{
+    padding: 20px 2px;
+}
+.card-footer{
+    background: white;
+}
+
+.cards{
+    margin-left: 5%;
+}
+footer{
+    background: white;
+}
