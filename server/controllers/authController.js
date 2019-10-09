@@ -26,4 +26,21 @@ export const signup = (req, res) => {
   }
 };
 export const signin = (req, res) => {
+  const { email, password } = req.body;
+  const newToken = generateToken({ email });
+
+  const userExists = user.findUser(email, password);
+  if (userExists) {
+    res.status(200).json({
+      status: res.statusCode,
+      data: {
+        token: newToken,
+      },
+    });
+  } else {
+    res.status(400).json({
+      status: res.statusCode,
+      error: 'Invalid credentials',
+    });
+  }
 };
