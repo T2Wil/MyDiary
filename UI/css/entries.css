@@ -1,0 +1,13 @@
+@import url("./profile.css");
+footer{
+    position: absolute;
+    width: 100%;
+    top: 80%;
+}
+.content{
+    position: relative;
+    top: 20%;
+    background: white;
+    width:fit-content;
+    left: 42%;
+}
