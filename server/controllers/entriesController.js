@@ -37,7 +37,19 @@ export const modifyEntry = (req, res) => {
   }
 };
 
-export const viewEntries = (req, res) => { 
+export const viewEntries = (req, res) => {
+  const entries = entry.getEntries();
+  if (entries) {
+    res.status(200).json({
+      status: res.statusCode,
+      data: entries,
+    });
+  } else {
+    res.status(500).json({
+      status: res.statusCode,
+      error: 'Internal server error',
+    });
+  }
 };
 export const viewSpecificEntry = (req, res) => {
 };
