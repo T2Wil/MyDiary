@@ -52,6 +52,19 @@ export const viewEntries = (req, res) => {
   }
 };
 export const viewSpecificEntry = (req, res) => {
+  const { entryId } = req.params;
+  const specificEntry = entry.getSpecificEntry(entryId);
+  if (specificEntry) {
+    res.status(200).json({
+      status: res.statusCode,
+      data: specificEntry,
+    });
+  } else {
+    res.status(404).json({
+      status: res.statusCode,
+      error: 'Entry doesn\'t exists',
+    });
+  }
 };
 export const deleteEntry = (req, res) => {
 };
