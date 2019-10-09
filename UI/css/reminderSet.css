@@ -1,0 +1,46 @@
+@import url("./profile.css");
+.content{
+    display: flex;
+    flex-direction: column;
+    font-family: Oswald;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 25px;
+    margin-top: 5%;
+}
+.content .title{
+    color: rgba(126,71,41,1); 
+    font-size: 32px;
+
+}
+.content .add-reminder input{
+    position: relative;
+    left: 39%;
+    top: 2.5rem;
+    border: none;
+}
+.content .add-reminder img{
+    width: 3%;
+    height: 3%;
+    position: relative;
+    bottom: 1.3rem;
+    right: 10%;
+}
+.reminders{
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+}
+.reminder{
+    display: flex;
+    position: relative;
+    right:20%;
+}
+.reminder span{
+    margin-right: -30%;
+}
+footer{
+    position: absolute;
+    width: 100vw;
+    top: 100%;
+}
