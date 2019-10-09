@@ -21,9 +21,35 @@ export const createEntry = (req, res) => {
 };
 
 export const modifyEntry = (req, res) => {
+  const { entryId } = req.params;
+  const modifiedEntry = entry.modifyEntry(entryId);
+  if (modifiedEntry) {
+    modifiedEntry.message = 'entry successfully edited';
+    res.status(200).json({
+      status: res.statusCode,
+      data: modifiedEntry,
+    });
+  } else {
+    res.status(304).json({
+      status: res.statusCode,
+      error: 'Entry not modified',
+    });
+  }
 };
 
-export const viewEntries = (req, res) => { 
+export const viewEntries = (req, res) => {
+  const entries = entry.getEntries();
+  if (entries) {
+    res.status(200).json({
+      status: res.statusCode,
+      data: entries,
+    });
+  } else {
+    res.status(500).json({
+      status: res.statusCode,
+      error: 'Internal server error',
+    });
+  }
 };
 export const viewSpecificEntry = (req, res) => {
 };
