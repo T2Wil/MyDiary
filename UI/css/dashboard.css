@@ -1,26 +1,18 @@
 @import url("./index.css");
-input{
-    color: black;
+html,body{
+    height: 100%;
+    width: 100%;
 }
-header .nav .logo{
-    padding-top: 0.4rem;
-}
-.nav ul{
-    display: flex;
-    position: relative;
-    left: 63%;
-}
-.nav ul li{
-    margin-left: -17%;
-}
+
 .search input{
+    color: black;
     position: relative;
     left: 35%;
     width: 33%;
     border: none;
     background: white;
     text-align: center;
-    padding-left: 3rem;
+    padding-left: 4.3rem;
     opacity: 0.7;
     z-index: inherit;
 }
@@ -30,35 +22,62 @@ header .nav .logo{
     top: 2.7rem;
     z-index: 1;
 }
+.search .icon-small{
+    margin-left: 36%;
+    width: 25rem;
+}
 .add-entry{
-    position: relative;
+    position: absolute;
     left: 50%;
     margin: 3rem auto;
 }
+.cards{
+    margin-top: 9rem;
+    margin-left: 5%;
+    margin-bottom: 2rem;
+}
 .card-title{
     background: white;
+    padding: 1rem;
 }
-.card-footer{
-    display: flex;
+.card-title a{
+    color: black;
 }
 .card-footer ul{
-    display: flex;
-    position: relative;
-    left: -12%;
-}
-.card-footer ul li{
-    margin-left: -26%;;
-}
-.cards .card-title{
-    padding: 20px 2px;
-}
-.card-footer{
     background: white;
-}
-
-.cards{
-    margin-left: 5%;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
 }
 footer{
+    position: relative;
+}
+.hide{
+    display: none;
+}
+.drop-down{
+    position: absolute;
+    right: 0.1%;
     background: white;
+}
+.drop-down li{
+    display: block;
+    margin: 0.2rem auto;
+}
+.card-title a:hover{
+    color: rgba(126,71,41,1);
+}
+.drop-down a:hover{
+    color: rgba(126,71,41,1);
+    font-weight: bold;
+}
+
+@media(max-width: 480px){
+    html,body{
+        font-size: 11px;
+    }
+  .cards{
+      margin-left: 10rem;
+  }
+    
 }
