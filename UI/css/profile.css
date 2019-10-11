@@ -1,19 +1,4 @@
 @import url("./dashboard.css");
-.drop-down{
-    display: flex;
-    flex-direction: column;
-    font-family: Oswald;
-}
-.drop-down li{
-    position: relative;
-    left: 30%;
-}
-.hide{
-    visibility: hidden;
-}
-.small-height{
-    height: 0rem;
-}
 .content{
     display: flex;
     flex-direction: column;
@@ -55,4 +40,14 @@
     color: white;
     text-decoration: none;
     opacity: 1;
+}
+footer{
+    position: absolute;
+    bottom: 0;
+}
+
+@media (max-width: 480px){
+    html, body{
+        font-size: 10px;
+    }
 }
