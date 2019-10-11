@@ -1,5 +1,4 @@
-@import url("../css/signup.css");
-@import url("../css/profile.css");
+@import url("./passwordEdit.css");
 
 .title{
     font-size: 2rem;
@@ -14,10 +13,22 @@ img{
     left: 55%;
     margin-top: 1.3rem;
 }
-.btn{
-    position: relative;
-    left: 47%;
-    margin: 1.2rem;
-    width: 8rem;
-    text-align: center;
+.action{
+    position: absolute;
+    top: 72%;
+    left: 36%;
+}
+@media (max-width: 480px){
+    span.title{
+        position: relative;
+        left: -8%;
+    }
+    .action {
+        position: absolute;
+        top: 68%;
+        left: 40%;
+    }
+    .action .btn{
+        margin: 0.5rem;
+    }
 }
