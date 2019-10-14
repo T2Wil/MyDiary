@@ -6,7 +6,7 @@ import entriesRoutes from './routes/entries';
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use('/auth', authRoutes);
-app.use('/entries', entriesRoutes);
+app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/entries', entriesRoutes);
 
 export default app;
