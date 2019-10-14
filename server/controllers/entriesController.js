@@ -30,9 +30,9 @@ export const modifyEntry = (req, res) => {
       data: modifiedEntry,
     });
   } else {
-    res.status(304).json({
+    res.status(404).json({
       status: res.statusCode,
-      error: 'Entry not modified',
+      error: 'Entry doesn\'t exists',
     });
   }
 };
