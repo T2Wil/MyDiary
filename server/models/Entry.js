@@ -4,7 +4,7 @@ import { generateId, instantTime } from '../helpers/utils';
 class Entry {
   constructor() {
     this.id = 0;
-    this.createdOn = '';
+    this.createdOn = new Date();
     this.title = '';
     this.description = '';
     this.entries = [];
