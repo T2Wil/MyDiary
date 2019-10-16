@@ -5,7 +5,8 @@
   "main": "server/server.js",
   "scripts": {
     "start:dev": "nodemon --exec babel-node -- server/server.js",
-    "start:server": "babel-node -- server/server.js"
+    "start:server": "babel-node -- server/server.js",
+    "start:test": "mocha --require @babel/polyfill --require @babel/register server/tests/* --timeout 10000 --recursive --exit"
   },
   "author": "T. William",
   "license": "ISC",
@@ -20,7 +21,10 @@
     "body-parser": "^1.19.0",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
+    "chai-things": "^0.2.0",
+    "esm": "^3.2.25",
     "express": "^4.17.1",
+    "faker": "^4.1.0",
     "jsonwebtoken": "^8.5.1",
     "mocha": "^6.2.1",
     "nodemon": "^1.19.3"
@@ -31,9 +35,7 @@
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2"
   },
-  
   "engines": {
     "node": "10.x"
   }
 }
-
