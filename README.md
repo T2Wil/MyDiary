@@ -39,3 +39,6 @@ MyDiary is an online journal where users can pen down their thoughts and feeling
   
 # Github pages
   link: [MyDiary web](https://t2wil.github.io/MyDiary/UI/pages/)
+
+# DOCUMENTATION
+  link: [API documentation with POSTMAN](https://documenter.getpostman.com/view/8214461/SVtZtjzG)
