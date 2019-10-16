@@ -16,16 +16,6 @@ const { expect } = chai;
 
 describe('Test GET /api/v1/entries/', () => {
   const data = fakeEntries[0];
-  it('should return 200 HTTP status code and an empty braces if no entries made', (done) => {
-    chai.request(app)
-      .get('/api/v1/entries/')
-      .end((err, res) => {
-        expect(res.body).to.have.property('status').equals(200).that.is.a('number');
-        expect(res.body.data).to.be.an('array');
-        expect(res.body.data).to.be.empty;
-      });
-    done();
-  });
   it('should return 200 HTTP status code if entries successfully retrieved', (done) => {
     chai.request(app)
       .post('/api/v1/entries/')
