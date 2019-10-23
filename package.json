@@ -23,6 +23,7 @@
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "chai-things": "^0.2.0",
+    "cors": "^2.8.5",
     "coveralls": "^3.0.7",
     "esm": "^3.2.25",
     "express": "^4.17.1",
@@ -30,7 +31,8 @@
     "jsonwebtoken": "^8.5.1",
     "mocha": "^6.2.1",
     "nodemon": "^1.19.3",
-    "nyc": "^14.1.1"
+    "nyc": "^14.1.1",
+    "swagger-ui-express": "^4.1.2"
   },
   "devDependencies": {
     "babel-install": "2.1.0",
