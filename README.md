@@ -42,4 +42,5 @@ MyDiary is an online journal where users can pen down their thoughts and feeling
 
 # DOCUMENTATION
   link: [API documentation with POSTMAN](https://documenter.getpostman.com/view/8214461/SVtZtjzG)
+  
   link: [API documentation with Swagger-UI](https://mydiary-app-api.herokuapp.com/api/v1/)
