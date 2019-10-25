@@ -1,4 +1,5 @@
 /* eslint-disable no-plusplus */
+
 const settings = document.querySelector('.settings');
 const dropDown = document.querySelector('.drop-down');
 const header = document.querySelector('header');
