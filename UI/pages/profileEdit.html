@@ -7,8 +7,8 @@
   	<meta name="author" content="T william">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>New Entry - MyDiary</title>
-    <link rel="stylesheet" href="../css/entry.css">
+    <title>Edit Profile</title>
+    <link rel="stylesheet" href="../css/profileEdit.css">
 </head>
 <body>
     <header>
@@ -28,20 +28,25 @@
             </ul>
         </div>
     </header>
-      <div class="entry">
-        <input type="text" name="title" id="title" placeholder="Title" autofocus class="entry-title">
-        <textarea name="" id="" cols="30" rows="30" placeholder="Take a note..." class="entry-body"></textarea >
-        <div class="entry-footer">
-            <ul>
-                <li><a href="./dashboard.html"><img src="../assets/ok-mark.svg" alt="save" class="icon-small"></a></li>
-                <li><a href="./dashboard.html"><img src="../assets/delete.svg" alt="delete entry" class="icon-small delete-icon"></a></li>
-            </ul>
-        </div>
-      </div> 
+    <span class="title">Edit profile info</span>
+    <div class="form-signup">
+        <img src="../assets/user.svg" alt="user image">
+        <form action="signup.html">
+            <img src="../assets/user.svg" alt="" class="icon-small">
+            <input type="text" name="firstName" id="firstName" placeholder="Existing first name" autofocus>
+            <img src="../assets/user.svg" alt="" class="icon-small">
+            <input type="text" name="lastName" id="lastName" placeholder="Existing Last Name">
+            <img src="../assets/email.svg" alt="" class="icon-small">
+            <input type="email" name="email" id="email" placeholder="Existing Email">
+            <div class="action">
+                <button class="btn"><a href="./profile.html">Save</a></button>
+                <button class="btn"><a href="./profile.html">Cancel</a></button>
+            </div>
+        </form>
+    </div>
     <footer>
         <span>© 2019 All Rights Reserved to MyDiary</span>
     </footer>
     <script src="../js/settings.js"></script>
-    <script src="../js/confirmDelete.js"></script>
 </body>
 </html>
