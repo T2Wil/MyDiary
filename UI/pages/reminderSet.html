@@ -13,17 +13,15 @@
 <body>
     <header>
         <div class="nav">
-            <a href="./index.html" class="logo">MyDiary</a>
+            <a href="dashboard.html" class="logo">MyDiary</a>
             <ul>
-                <li><a href="./dashboard.html"><img src="../assets/home.svg" alt="Home" class="icon-small dashboard"></a></li>
-                <li><a href="./explore.html"><img src="../assets/compass-with-white-needles.svg" alt="Explore" class="icon-small explore"></a></li>
-                <li><a href="./entry.html"><img src="../assets/edit.svg" alt="Add entry" class="icon-small entry"></a></li>
-                <li>
-                    <img src="../assets/settings.svg" alt="Settings" class="icon-small settings">
-                    <ul class="drop-down hide small-height">
-                        <li><a href="./profile.html" class="profile" >Profile</a></li>
-                        <li><a href="./reminder.html" class="reminder">Set reminder</a></li>
-                        <li><a href="./entries.html" class="entries">Entries</a></li>
+                <li><a href="./dashboard.html"><img src="../assets/home.svg" alt="Home" class="icon-small"></a></li>
+                <li><a href="./entry.html"><img src="../assets/plus.svg" alt="Add entry" class="icon-small"></a></li>
+                <li><a href="#"><img src="../assets/settings.svg" alt="Settings" class="settings icon-small" > </a>
+                    <ul class="drop-down hide">
+                        <li><a href="./profile.html">Profile</a></li>
+                        <li><a href="./reminderSet.html">Set reminder</a></li>
+                        <li><a href="./entries.html">Entries</a></li>
                     </ul>
                 </li>
                 <li><a href="./index.html"><img src="../assets/logout.svg" alt="Logout" class="icon-small"></a></li>
@@ -34,35 +32,38 @@
         <div class="title">Add  a reminder</div>
         <div class="add-reminder">
            <input type="time" name="time" id="time" autofocus>
-           <img src="../assets/plus.svg" alt="add" class="icon-small">
+           <a href="#">
+               <img src="../assets/plus.svg" alt="add" class="icon-small">
+           </a>
         </div>
         <div class="reminders">
         </div>
                 <div class="reminder">
                     <img src="../assets/clock.svg" alt="time" class="icon-small">
                     <span>20:30:PM</span>
-                    <img src="../assets/delete.svg" alt="delete" class="icon-small">
+                    <a href="#">
+                        <img src="../assets/delete.svg" alt="delete" class="icon-small delete-icon">
+                    </a>
                 </div>
                 <div class="reminder">
                     <img src="../assets/clock.svg" alt="time" class="icon-small">
                     <span>08:30:AM</span>
-                    <img src="../assets/delete.svg" alt="delete" class="icon-small">
+                    <a href="#">
+                        <img src="../assets/delete.svg" alt="delete" class="icon-small delete-icon">
+                    </a>
                 </div>
                 <div class="reminder">
                     <img src="../assets/clock.svg" alt="time" class="icon-small">
                     <span>12:00:PM</span>
-                    <img src="../assets/delete.svg" alt="delete" class="icon-small">
+                    <a href="#">
+                        <img src="../assets/delete.svg" alt="delete" class="icon-small delete-icon">
+                    </a>
                 </div>
     </div>
     <footer>
-        <ul>
-            <li>Support</li>
-            <li>Contact</li>
-            <li>FAQ</li>
-            <li>Terms of Use</li>
-        </ul>
-        
-        <span>Copyright by William</span>
-    </footer>    
+        <span>© 2019 All Rights Reserved to MyDiary</span>
+    </footer>
+    <script src="../js/settings.js"></script>
+    <script src="../js/confirmDelete.js"></script>
 </body>
 </html>
