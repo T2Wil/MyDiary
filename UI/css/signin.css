@@ -1,4 +1,11 @@
 @import url("./signup.css");
+.content{
+    padding-top: 10%;
+}
+.content .title{
+    position: relative;
+    left: 8%;
+}
 form a{
     font-family: Oswald;
     font-weight: lighter;
@@ -7,20 +14,27 @@ form a{
     margin-left: 53%;
     position: relative;
     top:10px;
-
-}
-.form-signup p{
-    text-align: center;
-    font-weight: bold;
-    font-size: 1.5rem;;    
+    left: 1rem;
 }
 .icon-small,form input,.title{
     margin-left: 38%;
     width: 50%;
 }
+footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
 @media(max-width:480px){
+    .content{
+        padding-top: 25%;
+    }
     form a{
         margin-left: 45%;
         font-size: 1.3rem;
+    }
+    .content .title{
+        position: relative;
+        left: -2%;
     }
 }
