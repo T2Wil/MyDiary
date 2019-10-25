@@ -1,0 +1,64 @@
+@import url("./dashboard.css");
+
+html,body{
+    height: 100%;
+    width: 100%;
+    color: black;
+}
+.content{
+    text-align: center;
+}
+.content .title{
+    color: rgba(126,71,41,1); 
+    font-size: 32px;
+}
+.content .add-reminder input{
+    text-align: center;
+    color: black;
+    background: white;
+    position: relative;
+    left: 35%;
+    top: 2.5rem;
+    border: none;
+}
+.content .add-reminder img{
+    width: 4%;
+    height: 4%;
+    position: relative;
+    bottom: 1.3rem;
+    left: 10%;
+}
+.reminders{
+    margin-top: 2rem;
+}
+.reminder{
+    margin-bottom: 1rem;
+}
+.reminder > *{
+    margin-right: 4rem;
+}
+.reminder span{
+    font-size: 1.5rem;
+}
+footer{
+    position: absolute;
+    bottom: 0;
+}
+@media (max-width: 480px){
+    .content .add-reminder input{
+        text-align: center;
+        color: black;
+        background: white;
+        position: relative;
+        left: 15%;
+        top: 2.5rem;
+        border: none;
+    }
+    .content .add-reminder img{
+        width: 10%;
+        height: 10%;
+        position: relative;
+        bottom: 1.3rem;
+        left: 20%;
+    }
+}

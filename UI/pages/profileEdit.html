@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="online journal">
+  	<meta name="keywords" content="online journal,journal">
+  	<meta name="author" content="T william">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Edit Profile</title>
+    <link rel="stylesheet" href="../css/profileEdit.css">
+</head>
+<body>
+    <header>
+        <div class="nav">
+            <a href="dashboard.html" class="logo">MyDiary</a>
+            <ul>
+                <li><a href="./dashboard.html"><img src="../assets/home.svg" alt="Home" class="icon-small"></a></li>
+                <li><a href="./entry.html"><img src="../assets/edit.svg" alt="Add entry" class="icon-small"></a></li>
+                <li><a href="#"><img src="../assets/settings.svg" alt="Settings" class="settings icon-small" > </a>
+                    <ul class="drop-down hide">
+                        <li><a href="./profile.html">Profile</a></li>
+                        <li><a href="./reminderSet.html">Set reminder</a></li>
+                        <li><a href="./entries.html">Entries</a></li>
+                    </ul>
+                </li>
+                <li><a href="./index.html"><img src="../assets/logout.svg" alt="Logout" class="icon-small"></a></li>
+            </ul>
+        </div>
+    </header>
+    <span class="title">Edit profile info</span>
+    <div class="form-signup">
+        <img src="../assets/user.svg" alt="user image">
+        <form action="signup.html">
+            <img src="../assets/user.svg" alt="" class="icon-small">
+            <input type="text" name="firstName" id="firstName" placeholder="Existing first name" autofocus>
+            <img src="../assets/user.svg" alt="" class="icon-small">
+            <input type="text" name="lastName" id="lastName" placeholder="Existing Last Name">
+            <img src="../assets/email.svg" alt="" class="icon-small">
+            <input type="email" name="email" id="email" placeholder="Existing Email">
+            <div class="action">
+                <button class="btn"><a href="./profile.html">Save</a></button>
+                <button class="btn"><a href="./profile.html">Cancel</a></button>
+            </div>
+        </form>
+    </div>
+    <footer>
+        <span>© 2019 All Rights Reserved to MyDiary</span>
+    </footer>
+    <script src="../js/settings.js"></script>
+</body>
+</html>

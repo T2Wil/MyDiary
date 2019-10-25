@@ -1,0 +1,32 @@
+@import url("./dashboard.css");
+.entry{
+    margin: 10% 10%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    left: 8%;
+}
+.entry .entry-title{
+    color: black;
+    text-align: center;
+    width: 80%;
+    background: white;
+    border: none;
+    border-radius: 0;
+}
+.entry .entry-body{
+    padding-top: 2rem;
+    width: 81.5%;
+    border: 1px solid rgba(0,0,0,0.6);
+    font-weight: 700;
+    font-size: 1rem;
+}
+.entry .entry-footer{
+    width: 82.1%;
+    background: rgba(126,71,41,0.8);
+}
+.entry .entry-footer ul{
+    display: flex;
+    justify-content: space-around;
+
+}
