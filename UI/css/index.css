@@ -3,8 +3,8 @@ html{
     background: #F3F3F3;
 }
 body{
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     height: 100vh;
     width: 100vw;
 }
@@ -57,14 +57,14 @@ header .nav ul li{
     padding-left: 11rem;
     margin-bottom: 3rem;
 }
+[btn-signup] a{
+    padding-left: 10%;
+    padding-right: 10%;
+}
 footer{
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 2.5rem;
-    background-color: white;
+    margin-top: 11%;
     text-align: center;
-    padding-top:1rem;
+    background: white;
 }
 
 footer li{
