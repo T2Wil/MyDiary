@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="description" content="online journal">
-  	<meta name="keywords" content="online journal,journal">
-  	<meta name="author" content="T william">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>New Entry - MyDiary</title>
-    <link rel="stylesheet" href="../css/entry.css">
+        <meta charset="UTF-8">
+        <meta name="description" content="online journal">
+        <meta name="keywords" content="online journal,journal">
+        <meta name="author" content="T william">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>My Profile - MyDiary</title>
+        <link rel="stylesheet" href="../css/profile.css">    
 </head>
 <body>
     <header>
@@ -28,16 +28,17 @@
             </ul>
         </div>
     </header>
-      <div class="entry">
-        <input type="text" name="title" id="title" placeholder="Title" autofocus class="entry-title">
-        <textarea name="" id="" cols="30" rows="30" placeholder="Take a note..." class="entry-body"></textarea >
-        <div class="entry-footer">
-            <ul>
-                <li><a href="./dashboard.html"><img src="../assets/ok-mark.svg" alt="save" class="icon-small"></a></li>
-                <li><a href=""><img src="../assets/delete.svg" alt="delete entry" class="icon-small"></a></li>
-            </ul>
+    <div class="content">
+        <div class="content-title"> My profile</div>
+        <div class="content-body">
+            <img src="../assets/user.svg" alt="user picture" class="image">
+            <span class="fullName">Full name</span>
+            <span class="userName">Username</span>
+            <span class="email">Email</span>
+            <a href="./passwordEdit.html">Edit password?</a>
+            <button class="btn"><a href="./profileEdit.html">Edit info</a></button>
         </div>
-      </div> 
+    </div>
     <footer>
         <span>© 2019 All Rights Reserved to MyDiary</span>
     </footer>
