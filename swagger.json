@@ -5,7 +5,7 @@
       "version": "1.0.0",
       "title": "MyDairy"
     },
-    "host": "mydiary-app-api.herokuapp.com",
+    "host": "localhost:3000",
     "basePath": "/api/v1/",
     "tags": [
       {
@@ -215,6 +215,15 @@
               "type": "integer",
               "description": "Id of an entry and updated entry object that needs to be added as an update",
               "required": true
+            },
+            {
+              "in": "body",
+              "name": "body",
+              "description": "entry requirements",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Entry"
+              }
             }
           ],
           "responses": {
@@ -278,7 +287,7 @@
           "lastName",
           "email",
           "password",
-          "repeat-password"
+          "repeatPassword"
       ],
         "properties": {
           "firstName": {
@@ -293,7 +302,7 @@
           "password": {
             "type": "string"
           },
-          "repeat-password": {
+          "repeatPassword": {
             "type": "string"
           }
         }
