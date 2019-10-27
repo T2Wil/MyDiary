@@ -22,7 +22,8 @@ export const createEntry = (req, res) => {
 
 export const modifyEntry = (req, res) => {
   const { entryId } = req.params;
-  const modifiedEntry = entry.modifyEntry(entryId);
+  const modifications = req.body;
+  const modifiedEntry = entry.editEntry(parseInt(entryId, 10), modifications);
   if (modifiedEntry) {
     modifiedEntry.message = 'entry successfully edited';
     res.status(200).json({

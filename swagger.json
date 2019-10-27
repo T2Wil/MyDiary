@@ -259,6 +259,7 @@
             "type": "integer",
             "description": "Id of an entry to be deleted",
             "required": true
+
           }
         ],
         "responses": {

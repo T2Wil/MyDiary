@@ -33,6 +33,7 @@ export const signin = (req, res) => {
   if (userExists) {
     res.status(200).json({
       status: res.statusCode,
+      message: 'User logged in successfully',
       data: {
         token: newToken,
       },
