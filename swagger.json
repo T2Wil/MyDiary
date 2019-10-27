@@ -1,341 +1,343 @@
 {
-    "swagger": "2.0",
-    "info": {
-      "description": "MyDiary is an online journal where users can pen down their thoughts and feelings.",
-      "version": "1.0.0",
-      "title": "MyDairy"
+  "swagger": "2.0",
+  
+  "info": {
+    "description": "MyDiary is an online journal where users can pen down their thoughts and feelings.",
+    "version": "1.0.0",
+    "title": "MyDairy"
+  },
+  "host": "mydiary-app-api.herokuapp.com",
+  "basePath": "/api/v1/",
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Authentication endpoints"
     },
-    "host": "localhost:3000",
-    "basePath": "/api/v1/",
-    "tags": [
-      {
-        "name": "Auth",
-        "description": "Authentication endpoints"
-      },
-      {
-        "name": "Entries",
-        "description": "Access to Entries API endpoints"
-      }
-    ],
-    "schemes": [
-      "https",
-      "http"
-    ],
-    "paths": {
-      "/auth/signup/": {
-        "post": {
-          "tags": [
-            "Auth"
-          ],
-          "summary": "Signup",
-          "description": "User signup endpoint",
-          "consumes": [
-            "application/json"
-          ],
-          "produces": [
-            "application/json"
-          ],
-          "parameters": [
-            {
-              "in": "body",
-              "name": "body",
-              "description": "User credentials to be used for signup",
-              "required": true,
-              "schema": {
-                "$ref": "#/definitions/Signup"
-              }
-            }
-          ],
-          "responses": {
-            "201": {
-              "description": "User created successfully"
-            },
-            "400": {
-              "description": "Client Error"
-            },
-            "409": {
-              "description": "Conflict: User Already exists"
+    {
+      "name": "Entries",
+      "description": "Access to Entries API endpoints"
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/auth/signup/": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Signup",
+        "description": "User signup endpoint",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User credentials to be used for signup",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Signup"
             }
           }
-        }
-      },
-      "/auth/signin/": {
-        "post": {
-          "tags": [
-            "Auth"
-          ],
-          "summary": "Signin",
-          "description": "User signin endpoint",
-          "consumes": [
-            "application/json"
-          ],
-          "produces": [
-            "application/json"
-          ],
-          "parameters": [
-            {
-              "in": "body",
-              "name": "body",
-              "description": "User credentials to be used to login",
-              "required": true,
-              "schema": {
-                "$ref": "#/definitions/Signin"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "User successfully logged in"
-            },
-            "400": {
-              "description": "Invalid credentials"
-            }
-          }
-        }
-      },
-      "/entries/": {
-        "post": {
-          "tags": [
-            "Entries"
-          ],
-          "summary": "Create new entry",
-          "description": "logged in User Should be able to add new entry",
-          "security": [
-            {
-              "Bearer": []
-            }
-          ],
-          "consumes": [
-            "application/json"
-          ],
-          "produces": [
-            "application/json"
-          ],
-          "parameters": [
-            {
-              "in": "body",
-              "name": "body",
-              "description": "entry requirements",
-              "required": true,
-              "schema": {
-                "$ref": "#/definitions/Entry"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "entry successfully created"
-            },
-            "400": {
-              "description": "Empty request"
-            }
-          }
-        },
-        "get": {
-          "tags": [
-            "Entries"
-          ],
-          "summary": "View all entries",
-          "description": "logged in Users Should be able to view all entries",
-          "security": [
-            {
-              "Bearer": []
-            }
-          ],
-          "consumes": [
-            "application/json"
-          ],
-          "produces": [
-            "application/json"
-          ],
-          "responses": {
-            "200": {
-              "description": "entries successfully retrieved"
-            }
-          }
-        }
-      },
-      "/entries/{entryId}": {
-        "get": {
-          "tags": [
-            "Entries"
-          ],
-          "summary": "View specific entry",
-          "description": "logged in users should be able to view specific entry",
-          "security": [
-            {
-              "Bearer": []
-            }
-          ],
-          "consumes": [
-            "application/json"
-          ],
-          "produces": [
-            "application/json"
-          ],
-          "parameters": [
-            {
-              "in": "path",
-              "name": "entryId",
-              "type": "integer",
-              "description": "An id of an entry to be retrieved",
-              "required": true
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "entry successfully retrieved"
-            },
-            "404": {
-              "description": "Entry doesn't exists"
-            }
-          }
-        },
-        "patch": {
-          "tags": [
-            "Entries"
-          ],
-          "summary": "Update an existing entry",
-          "description": "logged in users should be able to modify existing entry",
-          "security": [
-            {
-              "Bearer": []
-            }
-          ],
-          "consumes": [
-            "application/json"
-          ],
-          "produces": [
-            "application/json"
-          ],
-          "parameters": [
-            {
-              "in": "path",
-              "name": "entryId",
-              "type": "integer",
-              "description": "Id of an entry and updated entry object that needs to be added as an update",
-              "required": true
-            },
-            {
-              "in": "body",
-              "name": "body",
-              "description": "entry requirements",
-              "required": true,
-              "schema": {
-                "$ref": "#/definitions/Entry"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "entry successfully edited"
-            },
-            "404": {
-              "description": "Entry doesn't exists"
-            }
-          }
-        },
-        "delete": {
-          "tags": [
-            "Entries"
-          ],
-          "summary": "Delete an entry",
-          "description": "logged in users should be able to delete a specific entry",
-          "security": [
-            {
-              "Bearer": []
-            }
-          ],
-          "consumes": [
-            "application/json"
-          ],
-          "produces": [
-            "application/json"
-          ],
-          "parameters": [
-            {
-              "in": "path",
-              "name": "entryId",
-              "type": "integer",
-              "description": "Id of an entry to be deleted",
-              "required": true
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "entry successfully deleted"
-            },
-            "404": {
-              "description": "Entry doesn't exists"
-            }
+        ],
+        "responses": {
+          "201": {
+            "description": "User created successfully"
+          },
+          "400": {
+            "description": "Client Error"
+          },
+          "409": {
+            "description": "Conflict: User Already exists"
           }
         }
       }
     },
-    "securityDefinitions": {
-      "Bearer": {
-        "type": "apiKey",
-        "name": "token",
-        "in": "header"
+    "/auth/signin/": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Signin",
+        "description": "User signin endpoint",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User credentials to be used to login",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Signin"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User successfully logged in"
+          },
+          "400": {
+            "description": "Invalid credentials"
+          }
+        }
       }
     },
-    "definitions": {
-      "Signup": {
-        "type": "object",
-        "required": [
-          "firstName",
-          "lastName",
-          "email",
-          "password",
-          "repeatPassword"
-      ],
-        "properties": {
-          "firstName": {
-            "type": "string"
-          },
-          "lastName": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "password": {
-            "type": "string"
-          },
-          "repeatPassword": {
-            "type": "string"
+    "/entries/": {
+      "post": {
+        "tags": [
+          "Entries"
+        ],
+        "summary": "Create new entry",
+        "description": "logged in User Should be able to add new entry",
+        "security": [
+          {
+            "Bearer": []
           }
-        }
-      },
-      "Signin": {
-        "type": "object",
-        "required": [
-          "email",
-          "password"
-      ],
-        "properties": {
-            "email": {
-                "type": "string"
-            },
-            "password": {
-                "type": "string"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "entry requirements",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Entry"
             }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "entry successfully created"
+          },
+          "400": {
+            "description": "Empty request"
+          }
         }
       },
-      "Entry":{
-          "type": "object",
-          "required": [
-              "title",
-              "description"
-          ],
-          "properties": {
-              "title": {
-                  "type": "string"
-              },
-              "description": {
-                  "type": "string"
-              }
+      "get": {
+        "tags": [
+          "Entries"
+        ],
+        "summary": "View all entries",
+        "description": "logged in Users Should be able to view all entries",
+        "security": [
+          {
+            "Bearer": []
           }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "entries successfully retrieved"
+          }
+        }
+      }
+    },
+    "/entries/{entryId}": {
+      "get": {
+        "tags": [
+          "Entries"
+        ],
+        "summary": "View specific entry",
+        "description": "logged in users should be able to view specific entry",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "entryId",
+            "type": "integer",
+            "description": "An id of an entry to be retrieved",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "entry successfully retrieved"
+          },
+          "404": {
+            "description": "Entry doesn't exists"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Entries"
+        ],
+        "summary": "Update an existing entry",
+        "description": "logged in users should be able to modify existing entry",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "entryId",
+            "type": "integer",
+            "description": "Id of an entry and updated entry object that needs to be added as an update",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "entry requirements",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Entry"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "entry successfully edited"
+          },
+          "404": {
+            "description": "Entry doesn't exists"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Entries"
+        ],
+        "summary": "Delete an entry",
+        "description": "logged in users should be able to delete a specific entry",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "entryId",
+            "type": "integer",
+            "description": "Id of an entry to be deleted",
+            "required": true
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "entry successfully deleted"
+          },
+          "404": {
+            "description": "Entry doesn't exists"
+          }
+        }
       }
     }
+  },
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "token",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "Signup": {
+      "type": "object",
+      "required": [
+        "firstName",
+        "lastName",
+        "email",
+        "password",
+        "repeatPassword"
+    ],
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "repeatPassword": {
+          "type": "string"
+        }
+      }
+    },
+    "Signin": {
+      "type": "object",
+      "required": [
+        "email",
+        "password"
+    ],
+      "properties": {
+          "email": {
+              "type": "string"
+          },
+          "password": {
+              "type": "string"
+          }
+      }
+    },
+    "Entry":{
+        "type": "object",
+        "required": [
+            "title",
+            "description"
+        ],
+        "properties": {
+            "title": {
+                "type": "string"
+            },
+            "description": {
+                "type": "string"
+            }
+        }
+    }
   }
+}
