@@ -1,5 +1,6 @@
 {
   "swagger": "2.0",
+  
   "info": {
     "description": "MyDiary is an online journal where users can pen down their thoughts and feelings.",
     "version": "1.0.0",

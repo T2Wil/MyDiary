@@ -22,9 +22,14 @@ describe('Test PATCH /api/v1/entries/:entryId', () => {
       .end((err, res) => {
         const entryId = `${res.body.data.id}`;
         const path = `/api/v1/entries/${entryId}`;
+        const newData = {
+          title: 'modified new entry title',
+          description: 'modified entry description',
+        };
+        newData.entryId = entryId;
         chai.request(app)
           .patch(path)
-          .send(entryId)
+          .send(newData)
           .end((er, resp) => {
             expect(resp.body).to.have.property('status').equals(200).that.is.a('number');
             expect(resp.body).to.have.property('data').that.is.a('object');
