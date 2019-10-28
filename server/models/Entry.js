@@ -4,7 +4,7 @@ import { generateId, instantTime } from '../helpers/utils';
 class Entry {
   constructor() {
     this.id = 0;
-    this.createdOn = '';
+    this.createdOn = new Date();
     this.title = '';
     this.description = '';
     this.entries = [];
@@ -39,22 +39,22 @@ class Entry {
     return entryOfInterest;
   }
 
+  // eslint-disable-next-line consistent-return
   editEntry(id, entry) {
-    const title = { entry } || null;
-    const description = { entry } || null;
-    if (title || description) {
-      const selectedEntry = this.entries.find((savedEntry) => savedEntry.id === id);
-      const selectedEntryLocation = this.entries.indexOf(selectedEntry);
-      if (title) { selectedEntry.title = title; }
-      if (description) { selectedEntry.description = description; }
-      this.entries[selectedEntryLocation] = selectedEntry;
-      return true;
+    const { title } = entry || null;
+    const { description } = entry || null;
+    try {
+      if (title || description) {
+        const selectedEntry = this.entries.find((savedEntry) => savedEntry.id === id);
+        const selectedEntryLocation = this.entries.indexOf(selectedEntry);
+        if (title) { selectedEntry.title = title; }
+        if (description) { selectedEntry.description = description; }
+        this.entries[selectedEntryLocation] = selectedEntry;
+        return selectedEntry;
+      }
+    } catch (error) {
+      return false;
     }
-    return false;
-  }
-
-  modifyEntry(id) {
-    return this.entries.find((savedEntry) => String(savedEntry.id) === id);
   }
 
   getSpecificEntry(id) {

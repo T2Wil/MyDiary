@@ -1,46 +1,64 @@
-@import url("./profile.css");
+@import url("./dashboard.css");
+
+html,body{
+    height: 100%;
+    width: 100%;
+    color: black;
+}
 .content{
-    display: flex;
-    flex-direction: column;
-    font-family: Oswald;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 25px;
-    margin-top: 5%;
+    text-align: center;
 }
 .content .title{
     color: rgba(126,71,41,1); 
     font-size: 32px;
-
 }
 .content .add-reminder input{
+    text-align: center;
+    color: black;
+    background: white;
     position: relative;
-    left: 39%;
+    left: 35%;
     top: 2.5rem;
     border: none;
 }
 .content .add-reminder img{
-    width: 3%;
-    height: 3%;
+    width: 4%;
+    height: 4%;
     position: relative;
     bottom: 1.3rem;
-    right: 10%;
+    left: 10%;
 }
 .reminders{
-    display: flex;
-    flex-direction: column;
-    margin-top: 1rem;
+    margin-top: 2rem;
 }
 .reminder{
-    display: flex;
-    position: relative;
-    right:20%;
+    margin-bottom: 1rem;
+}
+.reminder > *{
+    margin-right: 4rem;
 }
 .reminder span{
-    margin-right: -30%;
+    font-size: 1.5rem;
 }
 footer{
     position: absolute;
-    width: 100vw;
-    top: 100%;
+    bottom: 0;
+}
+@media (max-width: 480px){
+    .content .add-reminder input{
+        text-align: center;
+        color: black;
+        background: white;
+        position: relative;
+        left: 15%;
+        top: 2.5rem;
+        border: none;
+    }
+    .content .add-reminder img{
+        width: 10%;
+        height: 10%;
+        position: relative;
+        bottom: 1.3rem;
+        left: 20%;
+    }
 }

@@ -1,8 +1,7 @@
 @import url("./profile.css");
-footer{
-    position: absolute;
+html,body{
+    height: 100%;
     width: 100%;
-    top: 80%;
 }
 .content{
     position: relative;
@@ -10,4 +9,14 @@ footer{
     background: white;
     width:fit-content;
     left: 42%;
+}
+@media (max-width: 480px){
+    header{
+        position: absolute;
+        width: 100%;
+    }
+    .content{
+        position: absolute;
+        left: 25%;
+    }
 }

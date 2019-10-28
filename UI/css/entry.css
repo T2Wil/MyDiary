@@ -1,61 +1,32 @@
-@import url("./index.css");
-input{
-    color: black;
-}
-header .nav .logo{
-    padding-top: 0.4rem;
-}
-.nav ul{
+@import url("./dashboard.css");
+.entry{
+    margin: 10% 10%;
     display: flex;
+    flex-direction: column;
     position: relative;
-    left: 63%;
+    left: 8%;
 }
-.nav ul li{
-    margin-left: -17%;;
-}
-.card{
-background: white;
-border: none;
-height: 60vh;
-/* margin-left: 30px; */
-}
-.card-title{
-}
-.new-entry .card-title input{
-    border: none;
+.entry .entry-title{
+    color: black;
     text-align: center;
-    color: black;
-}
-.card-text{
-    /* width: 200%; */
-}
-textarea{
-    width: 102%;
-    position: relative;
-    right: 2%;
-    border-left: none;
-    border-right: none;
-    bottom: 1.225rem;
-}
-
-.new-entry .card-footer{
-    display: flex;
-    margin-top: -40px;
-}
-.new-entry .card-footer ul{
-    display: flex;
-    position: relative;
-    left: -12%;
-}
-.new-entry .card-footer ul li{
-    margin-left: -26%;;
-}
-.new-entry .card{
-    position: relative;
-    left: 40%;
-}
-footer{
-    margin: auto 0;
+    width: 80%;
     background: white;
-    margin-top: 7%;
+    border: none;
+    border-radius: 0;
+}
+.entry .entry-body{
+    padding-top: 2rem;
+    width: 81.5%;
+    border: 1px solid rgba(0,0,0,0.6);
+    font-weight: 700;
+    font-size: 1rem;
+}
+.entry .entry-footer{
+    width: 82.1%;
+    background: rgba(126,71,41,0.8);
+}
+.entry .entry-footer ul{
+    display: flex;
+    justify-content: space-around;
+
 }

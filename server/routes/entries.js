@@ -5,10 +5,11 @@ import {
   viewEntries, viewSpecificEntry, deleteEntry,
 } from '../controllers/entriesController';
 import { verifyToken } from '../middleware/token';
+import { validateNewEntry } from '../middleware/validator';
 
 const router = express.Router();
 
-router.post('/', verifyToken, createEntry);
+router.post('/', validateNewEntry, verifyToken, createEntry);
 router.patch('/:entryId', verifyToken, modifyEntry);
 router.delete('/:entryId', verifyToken, deleteEntry);
 router.get('/', verifyToken, viewEntries);

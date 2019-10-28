@@ -1,13 +1,15 @@
 {
-  "name": "mydiary_backend",
+  "name": "my_diary",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "MyDiary is an online journal where users can pen down their thoughts and feelings",
+  "main": "server/server.js",
   "scripts": {
     "start:dev": "nodemon --exec babel-node -- server/server.js",
-    "start:server": "babel-node -- server/server.js"
+    "start:server": "babel-node -- server/server.js",
+    "start:test": "mocha --require @babel/polyfill --require @babel/register server/tests/* --timeout 10000 --recursive --exit",
+    "start:coverage": "nyc npm run start:test && nyc report --reporter=text-lcov | coveralls"
   },
-  "author": "",
+  "author": "T. William",
   "license": "ISC",
   "dependencies": {
     "@babel/cli": "^7.6.2",
@@ -20,15 +22,25 @@
     "body-parser": "^1.19.0",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
+    "chai-things": "^0.2.0",
+    "cors": "^2.8.5",
+    "coveralls": "^3.0.7",
+    "esm": "^3.2.25",
     "express": "^4.17.1",
+    "faker": "^4.1.0",
     "jsonwebtoken": "^8.5.1",
     "mocha": "^6.2.1",
-    "nodemon": "^1.19.3"
+    "nodemon": "^1.19.3",
+    "nyc": "^14.1.1",
+    "swagger-ui-express": "^4.1.2"
   },
   "devDependencies": {
     "babel-install": "2.1.0",
     "eslint": "^6.5.1",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2"
+  },
+  "engines": {
+    "node": "10.x"
   }
 }
