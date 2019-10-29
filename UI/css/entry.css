@@ -17,14 +17,14 @@
 }
 .entry .entry-body{
     padding-top: 2rem;
-    width: 81.5%;
+    width: 81%;
     border: 1px solid rgba(0,0,0,0.6);
     font-weight: 700;
     font-size: 1rem;
     text-align: center;
 }
 .entry .entry-footer{
-    width: 82.1%;
+    width: 81.5%;
     background: rgba(126,71,41,0.8);
 }
 .entry .entry-footer ul{
@@ -45,5 +45,17 @@ footer{
         flex-direction: column;
         position: relative;
         left: 8%;
+    }
+    .entry .entry-body{
+        padding-top: 2rem;
+        width: 82.2%;
+        border: 1px solid rgba(0,0,0,0.6);
+        font-weight: 700;
+        font-size: 1rem;
+        text-align: center;
+    }
+    .entry .entry-footer{
+        width: 84%;
+        background: rgba(126,71,41,0.8);
     }
 }
