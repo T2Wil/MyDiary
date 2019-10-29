@@ -4,11 +4,11 @@ html,body{
     width: 100%;
 }
 .content{
-    position: relative;
-    top: 20%;
+    position: absolute;
+    top: 40%;
     background: white;
     width:fit-content;
-    left: 42%;
+    left: 37%;
 }
 @media (max-width: 480px){
     header{
@@ -17,6 +17,8 @@ html,body{
     }
     .content{
         position: absolute;
-        left: 25%;
+        left: 20%;
     }
+    
 }
+

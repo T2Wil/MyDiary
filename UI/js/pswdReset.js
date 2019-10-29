@@ -14,3 +14,5 @@ cancelBtn.addEventListener('click', () => {
   resetPswdModal.classList.toggle('hide');
   getLinkNotif.classList.add('hide');
 });
+
+
