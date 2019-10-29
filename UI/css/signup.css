@@ -3,10 +3,14 @@ html,body{
     height: 100%;
     width: 100%;
 }
+.logo{
+    font-style: normal;
+    font-weight: lighter;
+    color: rgba(126,71,41,1); 
+}
 .form-signup{
     margin-left: 1%;
     margin-right: 20%;
-    margin-top: 2%;
     height: 80%;
 }
 .title{
@@ -74,6 +78,11 @@ p{
 }
 .form-signup p a{
     color: #7E4729;
+}
+footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
 
 @media(max-width:480px){
