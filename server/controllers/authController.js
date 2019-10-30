@@ -22,7 +22,7 @@ export const signup = (req, res) => {
       message: 'User created successfully',
       data: {
         token: newToken,
-        user_details: {
+        userDetails: {
           FirstName: user.fName,
           LastName: user.lName,
           Email: user.email,
