@@ -1,4 +1,4 @@
-import { generateId } from '../helpers/utils';
+import generateId from 'uuid/v1';
 
 class User {
   constructor() {
@@ -32,7 +32,7 @@ class User {
       this.email = userData.email;
       this.pswd = userData.pswd;
       this.id = userData.id;
-      return true;
+      return this.getUser();
     }
     return false;
   }

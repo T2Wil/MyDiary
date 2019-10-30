@@ -12,7 +12,6 @@ class FakeUser {
       lastName: faker.name.lastName(),
       email: faker.internet.email(),
       password,
-      repeatPassword: password,
     };
     this.users.push(user);
     return user;

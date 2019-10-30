@@ -1,17 +1,18 @@
 import jwt from 'jsonwebtoken';
+import { generateId } from '../helpers/utils';
 
 const SECRET_KEY = 'secret_key';
 
 
 export const generateToken = (payload) => jwt.sign(payload, SECRET_KEY,
   {
-    expiresIn: '24h',
+    expiresIn: '1h',
   });
 
 export const verifyToken = (req, res, next) => {
   let token;
   if (process.env.NODE_ENV === 'test') {
-    token = generateToken({ email: 'ishimwewil005@gmail.com' });
+    token = generateToken({ generateId });
   } else {
     const headerAuth = req.headers.authorization || req.headers.Authorization;
     token = headerAuth.split(' ')[1];

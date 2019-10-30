@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-expressions */
-/* eslint-disable import/prefer-default-export */
 import Joi from '@hapi/joi';
 
 const signupSchema = Joi.object({
@@ -12,8 +10,7 @@ const signupSchema = Joi.object({
     tlds: { allow: ['com', 'net'] },
   }).required(),
   password: Joi.string().pattern(/^[a-zA-Z0-9]{3,30}$/).required(),
-  repeatPassword: Joi.ref('password'),
-}).with('password', 'repeatPassword');
+});
 
 const signinSchema = Joi.object({
   email: Joi.string().email({
