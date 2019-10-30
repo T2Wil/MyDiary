@@ -45,23 +45,25 @@ export const validateSigninParams = (req, res, next) => {
 };
 
 export const validateNewEntry = (req, res, next) => {
-  const { error } = entrySchema.validate(req.body);
   try {
-    (req.body.title.length);
-  } catch (err) {
-    try {
-      (req.body.description.length);
-    } catch (er) {
+    const { error } = entrySchema.validate(req.body);
+    const titleLength = req.body.title.length;
+    const bodyLength = req.body.description.length;
+    if ((!titleLength) && (!bodyLength)) {
       res.status(400).json({
         status: res.statusCode,
         error: 'Bad request: Cant create an empty entry',
       });
-    }
-  }
-  if (error) {
-    res.status(400).json({
+    } else if (error) {
+      res.status(400).json({
+        status: res.statusCode,
+        error: `Bad request: ${error.details[0].message}`,
+      });
+    } else next();
+  } catch (err) {
+    res.status(404).json({
       status: res.statusCode,
-      error: `Bad request: ${error.details[0].message}`,
+      error: 'Not Found',
     });
-  } else next();
+  }
 };

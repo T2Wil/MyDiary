@@ -15,7 +15,8 @@ export const verifyToken = (req, res, next) => {
     token = generateToken({ generateId });
   } else {
     const headerAuth = req.headers.authorization || req.headers.Authorization;
-    token = headerAuth.split(' ')[1];
+    const headerAuthArray = headerAuth.split(' ');
+    [, token] = headerAuthArray;
   }
 
   jwt.verify(token, SECRET_KEY, (err,
