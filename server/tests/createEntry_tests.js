@@ -30,14 +30,28 @@ describe('Test POST /api/v1/entries', () => {
       });
     done();
   });
-  it('should return 400 HTTP status code if passing an empty entry', (done) => {
-    data = {};
+  it('should return 400 HTTP status code if entry is empty', (done) => {
+    data = {
+      title: '',
+      description: '',
+    };
     chai.request(app)
       .post('/api/v1/entries/')
       .send(data)
       .end((err, res) => {
         expect(res.body).to.have.property('status').equals(400).that.is.a('number');
         expect(res.body).to.have.property('error').equals('Bad request: Cant create an empty entry').that.is.a('string');
+      });
+    done();
+  });
+  it('should return 404 HTTP status code if invalid parameters are passed in', (done) => {
+    data = {};
+    chai.request(app)
+      .post('/api/v1/entries/')
+      .send(data)
+      .end((err, res) => {
+        expect(res.body).to.have.property('status').equals(404).that.is.a('number');
+        expect(res.body).to.have.property('error').equals('Not Found').that.is.a('string');
       });
     done();
   });
