@@ -7,7 +7,6 @@ export const signup = (req, res) => {
   const {
     firstName, lastName, email, password,
   } = req.body;
-  const newToken = generateToken({ email });
   const userExists = user.findUser(email);
   if (userExists) {
     res.status(409).json({
@@ -16,15 +15,23 @@ export const signup = (req, res) => {
     });
   } else {
     user.setUser(firstName, lastName, password, email);
+    const userId = user.getUser().id;
+    const newToken = generateToken({ userId });
     res.status(201).json({
       status: res.statusCode,
       message: 'User created successfully',
       data: {
         token: newToken,
+        userDetails: {
+          FirstName: user.fName,
+          LastName: user.lName,
+          Email: user.email,
+        },
       },
     });
   }
 };
+
 export const signin = (req, res) => {
   const { email, password } = req.body;
   const newToken = generateToken({ email });

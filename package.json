@@ -32,7 +32,8 @@
     "mocha": "^6.2.1",
     "nodemon": "^1.19.3",
     "nyc": "^14.1.1",
-    "swagger-ui-express": "^4.1.2"
+    "swagger-ui-express": "^4.1.2",
+    "uuid": "^3.3.3"
   },
   "devDependencies": {
     "babel-install": "2.1.0",
