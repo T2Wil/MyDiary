@@ -1,5 +1,5 @@
 import User from '../models/User';
-import { generateToken } from '../middleware/token';
+import generateToken from '../helpers/generateToken';
 
 const user = new User();
 
@@ -43,7 +43,7 @@ export const signin = (req, res) => {
       message: 'User logged in successfully',
       data: {
         token: newToken,
-        user_details: {
+        userDetails: {
           FirstName: user.fName,
           LastName: user.lName,
           Email: user.email,
@@ -57,3 +57,4 @@ export const signin = (req, res) => {
     });
   }
 };
+export const { users } = user;

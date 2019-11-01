@@ -1,12 +1,15 @@
-/* eslint-disable import/prefer-default-export */
 import Entry from '../models/Entry';
+import Storage from '../models/Storage';
 
 const entry = new Entry();
+const storage = new Storage();
 
 export const createEntry = (req, res) => {
-  const { title, description } = req.body;
+  const { userId, title, description } = req.body;
   const createdEntry = entry.createEntry(title, description);
-  if (createdEntry) {
+  const updatedStorage = storage.addEntry(userId, createdEntry);
+
+  if (createdEntry && updatedStorage) {
     createdEntry.message = 'entry successfully created';
     res.status(200).json({
       status: res.statusCode,
@@ -21,14 +24,16 @@ export const createEntry = (req, res) => {
 };
 
 export const modifyEntry = (req, res) => {
+  const { userId } = req.body;
   const { entryId } = req.params;
-  const modifications = req.body;
-  const modifiedEntry = entry.editEntry(parseInt(entryId, 10), modifications);
-  if (modifiedEntry) {
-    modifiedEntry.message = 'entry successfully edited';
+  const entryChanges = req.body;
+  entryChanges.id = entryId;
+  const updatedEntry = storage.modifyEntry(userId, entryChanges);
+  if (updatedEntry) {
     res.status(200).json({
       status: res.statusCode,
-      data: modifiedEntry,
+      message:'entry successfully edited',
+      data: updatedEntry,
     });
   } else {
     res.status(404).json({
@@ -39,7 +44,8 @@ export const modifyEntry = (req, res) => {
 };
 
 export const viewEntries = (req, res) => {
-  const entries = entry.getEntries();
+  const { userId } = req.body;
+  const entries = storage.getEntries(userId);
   if (entries) {
     res.status(200).json({
       status: res.statusCode,
@@ -53,8 +59,9 @@ export const viewEntries = (req, res) => {
   }
 };
 export const viewSpecificEntry = (req, res) => {
+  const { userId } = req.body;
   const { entryId } = req.params;
-  const specificEntry = entry.getSpecificEntry(entryId);
+  const specificEntry = storage.getSpecificEntry(userId, entryId);
   if (specificEntry) {
     res.status(200).json({
       status: res.statusCode,
@@ -69,7 +76,8 @@ export const viewSpecificEntry = (req, res) => {
 };
 export const deleteEntry = (req, res) => {
   const { entryId } = req.params;
-  const deletedEntry = entry.deleteEntry(entryId);
+  const { userId } = req.body;
+  const deletedEntry = storage.deleteEntry(userId, entryId);
   if (deletedEntry) {
     res.status(200).json({
       status: res.statusCode,

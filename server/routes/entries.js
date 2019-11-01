@@ -1,10 +1,9 @@
-/* eslint-disable import/named */
 import express from 'express';
 import {
   createEntry, modifyEntry,
   viewEntries, viewSpecificEntry, deleteEntry,
 } from '../controllers/entriesController';
-import { verifyToken } from '../middleware/token';
+import verifyToken from '../middleware/verifyToken';
 import { validateNewEntry } from '../middleware/validator';
 
 const router = express.Router();

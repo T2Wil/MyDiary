@@ -1,5 +1,5 @@
-/* eslint-disable linebreak-style */
-import { generateId, instantTime } from '../helpers/utils';
+import generateId from 'uuid/v1';
+import { instantTime } from '../helpers/utils';
 
 class Entry {
   constructor() {
@@ -11,8 +11,8 @@ class Entry {
   }
 
   createEntry(title, description) {
-    this.title = title;
-    this.description = description;
+    this.title = title || 'UNTITLED';
+    this.description = description || 'NO DESCRIPTION';
     this.id = generateId();
     this.createdOn = instantTime();
     this.entries.push(this.getEntry());
@@ -26,39 +26,6 @@ class Entry {
       description: this.description,
       createdOn: this.createdOn,
     };
-  }
-
-  getEntries() {
-    return this.entries.sort((entry1, entry2) => entry1.id - entry2.id);
-  }
-
-  deleteEntry(id) {
-    const entryOfInterest = this.entries.find((entry) => String(entry.id) === id);
-    const entryLocation = this.entries.indexOf(entryOfInterest);
-    this.entries.splice(entryLocation, 1);
-    return entryOfInterest;
-  }
-
-  // eslint-disable-next-line consistent-return
-  editEntry(id, entry) {
-    const { title } = entry || null;
-    const { description } = entry || null;
-    try {
-      if (title || description) {
-        const selectedEntry = this.entries.find((savedEntry) => savedEntry.id === id);
-        const selectedEntryLocation = this.entries.indexOf(selectedEntry);
-        if (title) { selectedEntry.title = title; }
-        if (description) { selectedEntry.description = description; }
-        this.entries[selectedEntryLocation] = selectedEntry;
-        return selectedEntry;
-      }
-    } catch (error) {
-      return false;
-    }
-  }
-
-  getSpecificEntry(id) {
-    return this.entries.find((savedEntry) => String(savedEntry.id) === id);
   }
 }
 

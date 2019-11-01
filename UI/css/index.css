@@ -134,14 +134,14 @@ P{
 	font-size: 1.125rem;
 	color: rgba(0,0,0,1);
 }
-.btn,input{
+/* .btn,input{
     border-style: none;
     font-size: 1.563rem;
     color: white;
     background: #7E4729;
     border-radius: 0.625rem;
     padding: 0.625rem;
-}
+} */
 
 input{
     display: block;
