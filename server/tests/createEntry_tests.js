@@ -21,9 +21,11 @@ describe('Test POST /api/v1/entries', () => {
       .post('/api/v1/auth/signup')
       .send(userData)
       .end((err, res) => {
-        data.headerAuth = res.body.data.token;
         console.log(`Body response from SIGNUP 200: ${JSON.stringify(res.body)}`);
+        console.log(`data from SIGNUP: ${res.body.data}`);
         console.log(`token from SIGNUP: ${res.body.data.token}`);
+        console.log(`Body response from SIGNUP 200: ${JSON.stringify(res.body)}`);
+        data.headerAuth = res.body.data.token;
         chai.request(app)
           .post('/api/v1/entries')
           .send(data)
