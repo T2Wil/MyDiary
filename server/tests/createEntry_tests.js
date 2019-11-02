@@ -17,6 +17,7 @@ let userData = user.generateFakeUser();
 describe('Test POST /api/v1/entries', () => {
   let data = fakeEntries[0];
   it('should return 200 HTTP status code if an entry successfully created', (done) => {
+    console.log(`userData : ${JSON.stringify(userData)}`);
     chai.request(app)
       .post('/api/v1/auth/signup')
       .send(userData)
