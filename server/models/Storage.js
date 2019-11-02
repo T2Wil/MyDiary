@@ -33,10 +33,14 @@ class Storage {
   }
 
   getEntries(userId) {
-    return this.database.find((entries) => entries.userId === userId);
+    try {
+      return (this.database.find((entries) => entries.userId === userId)).entries;
+    } catch (err) {
+      return false;
+    }
   }
 
-  modifyEntry(userId, modifiedEntry) {
+  updateEntry(userId, modifiedEntry) {
     for (let index = 0; index < this.database.length; index += 1) {
       if (this.database[index].userId === userId) {
         const { entries } = this.database[index];

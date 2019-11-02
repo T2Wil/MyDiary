@@ -23,16 +23,16 @@ export const createEntry = (req, res) => {
   }
 };
 
-export const modifyEntry = (req, res) => {
+export const updateEntry = (req, res) => {
   const { userId } = req.body;
   const { entryId } = req.params;
   const entryChanges = req.body;
   entryChanges.id = entryId;
-  const updatedEntry = storage.modifyEntry(userId, entryChanges);
+  const updatedEntry = storage.updateEntry(userId, entryChanges);
   if (updatedEntry) {
     res.status(200).json({
       status: res.statusCode,
-      message:'entry successfully edited',
+      message: 'entry successfully edited',
       data: updatedEntry,
     });
   } else {
@@ -45,16 +45,33 @@ export const modifyEntry = (req, res) => {
 
 export const viewEntries = (req, res) => {
   const { userId } = req.body;
-  const entries = storage.getEntries(userId);
-  if (entries) {
+  const page = req.query.page || 1;
+  const entriesPerPage = 5;
+  let entries = storage.getEntries(userId);
+  const totalEntries = entries.length;
+  const totalPages = Math.ceil(totalEntries / entriesPerPage);
+  const firstEntryIndex = (page * entriesPerPage) - entriesPerPage;
+  const lastEntryIndex = firstEntryIndex + entriesPerPage;
+  try {
+    entries = entries.slice(firstEntryIndex, lastEntryIndex);
+    if (entries) {
+      res.status(200).json({
+        status: res.statusCode,
+        totalEntries,
+        pages: `Page ${page} of ${totalPages}`,
+        data: entries,
+      });
+    } else {
+      res.status(500).json({
+        status: res.statusCode,
+        error: 'Internal server error',
+      });
+    }
+  } catch (err) {
     res.status(200).json({
       status: res.statusCode,
-      data: entries,
-    });
-  } else {
-    res.status(500).json({
-      status: res.statusCode,
-      error: 'Internal server error',
+      userId,
+      data: [],
     });
   }
 };
@@ -65,7 +82,10 @@ export const viewSpecificEntry = (req, res) => {
   if (specificEntry) {
     res.status(200).json({
       status: res.statusCode,
-      data: specificEntry,
+      data: {
+        userId,
+        specificEntry,
+      },
     });
   } else {
     res.status(404).json({

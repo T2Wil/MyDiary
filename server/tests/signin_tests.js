@@ -37,7 +37,7 @@ describe('Test POST /api/v1/auth/signin/', () => {
         done();
       });
   });
-  it('should return 400 HTTP status code if invalid credentials', (done) => {
+  it('should return 401 HTTP status code if invalid credentials', (done) => {
     const newUser = user.generateFakeUser();
     signinData = {
       email: newUser.email,
@@ -47,8 +47,22 @@ describe('Test POST /api/v1/auth/signin/', () => {
       .post('/api/v1/auth/signin')
       .send(signinData)
       .end((err, res) => {
-        expect(res.body).to.have.property('status').equals(400).that.is.a('number');
+        expect(res.body).to.have.property('status').equals(401).that.is.a('number');
         expect(res.body).to.have.property('error').equals('Invalid credentials').that.is.a('string');
+        done();
+      });
+  });
+  it('should return 422 HTTP status code if invalid inputs', (done) => {
+    const newUser = user.generateFakeUser();
+    signinData = {
+      password: newUser.password,
+    };
+    chai.request(app)
+      .post('/api/v1/auth/signin')
+      .send(signinData)
+      .end((err, res) => {
+        expect(res.body).to.have.property('status').equals(422).that.is.a('number');
+        expect(res.body).to.have.property('error').equals('invalid input').that.is.a('string');
         done();
       });
   });

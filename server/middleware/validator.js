@@ -3,18 +3,18 @@ import { signupSchema, signinSchema, entrySchema } from '../helpers/ValidationSc
 export const validateSignupParams = (req, res, next) => {
   const { error } = signupSchema.validate(req.body);
   if (error) {
-    res.status(400).json({
+    res.status(422).json({
       status: res.statusCode,
-      error: error.details[0].message,
+      error: 'invalid input',
     });
   } else next();
 };
 export const validateSigninParams = (req, res, next) => {
   const { error } = signinSchema.validate(req.body);
   if (error) {
-    res.status(400).json({
+    res.status(422).json({
       status: res.statusCode,
-      error: `Bad request: ${error.details[0].message}`,
+      error: 'invalid input',
     });
   } else next();
 };
@@ -25,9 +25,9 @@ export const validateNewEntry = (req, res, next) => {
     const titleLength = req.body.title.length;
     const bodyLength = req.body.description.length;
     if ((!titleLength) && (!bodyLength)) {
-      res.status(400).json({
+      res.status(422).json({
         status: res.statusCode,
-        error: 'Bad request: Cant create an empty entry',
+        error: 'Cant create an empty entry',
       });
     } else if (titleLength || bodyLength) next();
     else if (error) {
@@ -37,9 +37,9 @@ export const validateNewEntry = (req, res, next) => {
       });
     } else next();
   } catch (err) {
-    res.status(400).json({
+    res.status(422).json({
       status: res.statusCode,
-      error: 'Bad request',
+      error: 'invalid input',
     });
   }
 };

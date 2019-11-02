@@ -38,13 +38,23 @@ describe('Test GET /api/v1/entries', () => {
       .get('/api/v1/entries/')
       .send({ headerAuth })
       .end((err, res) => {
+        // console.log(`body response: ${JSON.stringify(res.body.data[0])}`);
+        // console.log(`body response: ${JSON.stringify(Object.keys(res.body.data[0]))}`);
         expect(res.body).to.have.property('status').equals(200).that.is.a('number');
-        expect(res.body).to.have.property('data').that.is.an('object');
-        expect(res.body.data).to.have.property('userId');
+        expect(res.body).to.have.property('data');
         expect(res.body.data).to.have.property('entries');
-        expect(Object.keys(res.body.data.entries[0])).to.have.members(['id', 'title', 'description', 'createdOn']);
-        expect(res.body.data.entries[0].title).to.be.a('string');
-        expect(res.body.data.entries[0].description).to.be.a('string');
+        expect(Object.keys(res.body.data[0])).to.have.members(['id', 'title', 'description', 'createdOn']);
+        expect(res.body.data[0].title).to.be.a('string');
+        expect(res.body.data[0].description).to.be.a('string');
+        done();
+      });
+  });
+  it('should return 401 HTTP status code if no token is provided', (done) => {
+    chai.request(app)
+      .get('/api/v1/entries/')
+      .end((err, res) => {
+        expect(res.body).to.have.property('status').equals(401).that.is.a('number');
+        expect(res.body).to.have.property('error').equals('Unauthorized Access');
         done();
       });
   });

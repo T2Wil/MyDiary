@@ -51,7 +51,7 @@ export const signin = (req, res) => {
       },
     });
   } else {
-    res.status(400).json({
+    res.status(401).json({
       status: res.statusCode,
       error: 'Invalid credentials',
     });
