@@ -10,87 +10,51 @@ process.env.NODE_ENV = 'test';
 
 chai.use(chaiHttp);
 chai.use(chaiThings);
+
 const { expect } = chai;
 const user = new FakeUser();
-let userData = user.generateFakeUser();
+let entry = fakeEntries[0];
+const userCredentials = user.generateFakeUser();
+let headerAuth = '';
 
 describe('Test POST /api/v1/entries', () => {
-  let data = fakeEntries[0];
-  it('should return 200 HTTP status code if an entry successfully created', (done) => {
-    console.log(`userData : ${JSON.stringify(userData)}`);
+  before((done) => {
     chai.request(app)
       .post('/api/v1/auth/signup')
-      .send(userData)
+      .send(userCredentials)
       .end((err, res) => {
-        console.log(`Body response from SIGNUP 200: ${JSON.stringify(res.body)}`);
-        console.log(`data from SIGNUP: ${JSON.stringify(res.body.data)}`);
-        console.log(`token from SIGNUP: ${res.body.data.token}`);
-        console.log(`Body response from SIGNUP 200: ${JSON.stringify(res.body)}`);
-        data.headerAuth = res.body.data.token;
-        chai.request(app)
-          .post('/api/v1/entries')
-          .send(data)
-          .end((error, response) => {
-            console.log(`Body response from /entries: ${JSON.stringify(response.body)}`);
-            // expect(response.body).to.have.property('status').equals(200).that.is.a('number');
-            // expect(response.body).to.have.property('data').that.is.an('object');
-            // expect(response.body).to.have.property('data').that.includes.property('id');
-            // expect(response.body).to.have.property('data').that.includes.property('title').that.is.a('string');
-            // expect(response.body).to.have.property('data').that.includes.property('description').that.is.a('string');
-            // expect(response.body).to.have.property('data').that.includes.property('createdOn');
-            // expect(response.body).to.have.property('data').that.includes.property('message').that.is.a('string');
-          });
+        headerAuth = res.body.data.token;
+        done();
       });
-    done();
+  });
+  it('should return 200 HTTP status code if an entry successfully created', (done) => {
+    entry.headerAuth = headerAuth;
+    chai.request(app)
+      .post('/api/v1/entries/')
+      .send(entry)
+      .end((err, res) => {
+        expect(res.body).to.have.property('status').equals(200).that.is.a('number');
+        expect(res.body).to.have.property('data').that.is.an('object');
+        expect(res.body).to.have.property('data').that.includes.property('id');
+        expect(res.body).to.have.property('data').that.includes.property('title').that.is.a('string');
+        expect(res.body).to.have.property('data').that.includes.property('description').that.is.a('string');
+        expect(res.body).to.have.property('data').that.includes.property('createdOn');
+        expect(res.body).to.have.property('data').that.includes.property('message').that.is.a('string');
+        done();
+      });
   });
   it('should return 400 HTTP status code if entry is empty', (done) => {
-    data = {
+    entry = {
       title: '',
       description: '',
     };
-    userData = user.generateFakeUser();
     chai.request(app)
-      .post('/api/v1/auth/signup')
-      .send(userData)
-      .end((err, res) => {
-        console.log(`Body response from SIGNUP 400: ${JSON.stringify(res.body)}`);
-        console.log(`data from SIGNUP: ${JSON.stringify(res.body.data)}`);
-        console.log(`token from SIGNUP: ${res.body.data.token}`);
-        console.log(`Body response from SIGNUP 200: ${JSON.stringify(res.body)}`);
-        data.headerAuth = res.body.data.token;
-        chai.request(app)
-          .post('/api/v1/entries')
-          .send(data)
-          .end((error, response) => {
-            console.log(`Body response from /entries: ${JSON.stringify(response.body)}`);
-            // expect(response.body).to.have.property('status').equals(400).that.is.a('number');
-            // expect(response.body).to.have.property('error').equals('Bad request: Cant create an empty entry').that.is.a('string');
-          });
+      .post('/api/v1/entries')
+      .send(entry)
+      .end((error, response) => {
+        expect(response.body).to.have.property('status').equals(400).that.is.a('number');
+        expect(response.body).to.have.property('error').equals('Bad request: Cant create an empty entry').that.is.a('string');
+        done();
       });
-    done();
-  });
-
-  it('should return 404 HTTP status code if invalid parameters are passed in', (done) => {
-    const emptyData = {};
-    userData = user.generateFakeUser();
-    chai.request(app)
-      .post('/api/v1/auth/signup')
-      .send(userData)
-      .end((err, res) => {
-        console.log(`Body response from SIGNUP 200: ${JSON.stringify(res.body)}`);
-        console.log(`data from SIGNUP: ${JSON.stringify(res.body.data)}`);
-        console.log(`token from SIGNUP: ${res.body.data.token}`);
-        console.log(`Body response from SIGNUP 200: ${JSON.stringify(res.body)}`);
-        emptyData.headerAuth = res.body.data.token;
-        chai.request(app)
-          .post('/api/v1/entries')
-          .send(emptyData)
-          .end((error, response) => {
-            console.log(`Body response from /entries: ${JSON.stringify(response.body)}`);
-            // expect(response.body).to.have.property('status').equals(400).that.is.a('number');
-            // expect(response.body).to.have.property('error').equals('Bad request').that.is.a('string');
-          });
-      });
-    done();
   });
 });

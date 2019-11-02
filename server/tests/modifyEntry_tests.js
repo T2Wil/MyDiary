@@ -1,49 +1,56 @@
-// import chai from 'chai';
-// import chaiHttp from 'chai-http';
-// import chaiThings from 'chai-things';
-// import fakeEntries from '../mock/fakeEntries';
-// import app from '../app';
-// import FakeUser from '../mock/FakeUser';
+import chai from 'chai';
+import chaiHttp from 'chai-http';
+import chaiThings from 'chai-things';
+import fakeEntries from '../mock/fakeEntries';
+import app from '../app';
+import FakeUser from '../mock/FakeUser';
 
-// process.env.NODE_ENV = 'test';
+process.env.NODE_ENV = 'test';
 
 
-// chai.use(chaiHttp);
-// chai.use(chaiThings);
-// const { expect } = chai;
-// const user = new FakeUser();
-// const userData = user.generateFakeUser();
+chai.use(chaiHttp);
+chai.use(chaiThings);
 
-// describe('Test PATCH /api/v1/entries/:entryId', () => {
-//   const fakeEntry = fakeEntries[0];
-//   it('should return 200 HTTP status code if an entry successfully modified', (done) => {
-//     chai.request(app)
-//       .post('/api/v1/auth/signup')
-//       .send(userData)
-//       .end((err, response) => {
-//         fakeEntry.headerAuth = response.body.data.token;
-//         chai.request(app)
-//           .post('/api/v1/entries/')
-//           .send(fakeEntry)
-//           .end((error, res) => {
-//             const entryChanges = {};
-//             entryChanges.title = 'modified new entry title';
-//             entryChanges.description = 'modified entry description';
-//             entryChanges.entryId = res.body.data.id;
-//             entryChanges.headerAuth = response.body.data.token;
-//             const path = `/api/v1/entries/${entryChanges.entryId}`;
-//             chai.request(app)
-//               .patch(path)
-//               .send(entryChanges)
-//               .end((er, resp) => {
-//                 expect(resp.body).to.have.property('status').equals(200).that.is.a('number');
-//                 expect(resp.body).to.have.property('data').that.is.a('object');
-//                 expect(resp.body).to.have.property('data').that.includes.property('id');
-//                 expect(resp.body).to.have.property('data').that.includes.property('title').that.is.a('string');
-//                 expect(resp.body).to.have.property('data').that.includes.property('description').that.is.a('string');
-//               });
-//           });
-//       });
-//     done();
-//   });
-// });
+const { expect } = chai;
+const user = new FakeUser();
+const entry = fakeEntries[0];
+const userCredentials = user.generateFakeUser();
+let headerAuth = '';
+let entryId;
+
+describe('Test POST /api/v1/entries', () => {
+  before((done) => {
+    chai.request(app)
+      .post('/api/v1/auth/signup')
+      .send(userCredentials)
+      .end((err, res) => {
+        headerAuth = res.body.data.token;
+        entry.headerAuth = headerAuth;
+        chai.request(app)
+          .post('/api/v1/entries/')
+          .send(entry)
+          .end((er, resp) => {
+            entryId = resp.body.data.id;
+            done();
+          });
+      });
+  });
+  it('should return 200 HTTP status code if entries successfully retrieved', (done) => {
+    const path = `/api/v1/entries/${entryId}`;
+    const updatedEntry = {
+      title: 'Updated title',
+      description: 'Updated entry description',
+    };
+
+    chai.request(app)
+      .patch(path)
+      .send({ headerAuth, updatedEntry })
+      .end((err, resp) => {
+        expect(resp.body).to.have.property('status').equals(200).that.is.a('number');
+        expect(resp.body).to.have.property('message').equals('entry successfully edited');
+        expect(resp.body).to.have.property('data').that.is.a('object');
+        expect(resp.body).to.have.property('data').that.includes.property('id');
+        done();
+      });
+  });
+});
