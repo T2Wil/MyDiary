@@ -1,55 +1,56 @@
-/* eslint-disable no-undef */
-
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import chaiThings from 'chai-things';
 import fakeEntries from '../mock/fakeEntries';
 import app from '../app';
+import FakeUser from '../mock/FakeUser';
 
 process.env.NODE_ENV = 'test';
 
 
 chai.use(chaiHttp);
 chai.use(chaiThings);
+
 const { expect } = chai;
+const user = new FakeUser();
+const entry = fakeEntries[0];
+const userCredentials = user.generateFakeUser();
+let headerAuth = '';
+let entryId;
 
 describe('Test PATCH /api/v1/entries/:entryId', () => {
-  const data = fakeEntries[0];
-  it('should return 200 HTTP status code if an entry successfully modified', (done) => {
+  before((done) => {
     chai.request(app)
-      .post('/api/v1/entries/')
-      .send(data)
+      .post('/api/v1/auth/signup')
+      .send(userCredentials)
       .end((err, res) => {
-        const entryId = `${res.body.data.id}`;
-        const path = `/api/v1/entries/${entryId}`;
-        const newData = {
-          title: 'modified new entry title',
-          description: 'modified entry description',
-        };
-        newData.entryId = entryId;
+        headerAuth = res.body.data.token;
+        entry.headerAuth = headerAuth;
         chai.request(app)
-          .patch(path)
-          .send(newData)
+          .post('/api/v1/entries/')
+          .send(entry)
           .end((er, resp) => {
-            expect(resp.body).to.have.property('status').equals(200).that.is.a('number');
-            expect(resp.body).to.have.property('data').that.is.a('object');
-            expect(resp.body).to.have.property('data').that.includes.property('message').equals('entry successfully edited').that.is.a('string');
-            expect(resp.body).to.have.property('data').that.includes.property('id').that.is.a('number');
-            expect(resp.body).to.have.property('data').that.includes.property('title').that.is.a('string');
-            expect(resp.body).to.have.property('data').that.includes.property('description').that.is.a('string');
+            entryId = resp.body.data.id;
+            done();
           });
-        done();
       });
   });
-  it('should return 404 HTTP status code if entry doesn\'t exists', (done) => {
-    const path = '/api/v1/entries/10000';
+  it('should return 200 HTTP status code if entries successfully retrieved', (done) => {
+    const path = `/api/v1/entries/${entryId}`;
+    const updatedEntry = {
+      title: 'Updated title',
+      description: 'Updated entry description',
+    };
+
     chai.request(app)
       .patch(path)
-      .send(data)
-      .end((err, res) => {
-        expect(res.body).to.have.property('status').equals(404).that.is.a('number');
-        expect(res.body).to.have.property('error').equals('Entry doesn\'t exists').that.is.a('string');
+      .send({ headerAuth, updatedEntry })
+      .end((err, resp) => {
+        expect(resp.body).to.have.property('status').equals(200).that.is.a('number');
+        expect(resp.body).to.have.property('message').equals('entry successfully edited');
+        expect(resp.body).to.have.property('data').that.is.a('object');
+        expect(resp.body).to.have.property('data').that.includes.property('id');
+        done();
       });
-    done();
   });
 });

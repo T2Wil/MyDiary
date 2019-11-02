@@ -1,5 +1,5 @@
 import User from '../models/User';
-import { generateToken } from '../middleware/token';
+import generateToken from '../helpers/generateToken';
 
 const user = new User();
 
@@ -34,21 +34,27 @@ export const signup = (req, res) => {
 
 export const signin = (req, res) => {
   const { email, password } = req.body;
-  const newToken = generateToken({ email });
-
-  const userExists = user.findUser(email, password);
-  if (userExists) {
+  const userInfo = user.findUser(email, password);
+  const userId = userInfo.id;
+  const newToken = generateToken({ userId });
+  if (userInfo) {
     res.status(200).json({
       status: res.statusCode,
       message: 'User logged in successfully',
       data: {
         token: newToken,
+        userDetails: {
+          FirstName: user.fName,
+          LastName: user.lName,
+          Email: user.email,
+        },
       },
     });
   } else {
-    res.status(400).json({
+    res.status(401).json({
       status: res.statusCode,
       error: 'Invalid credentials',
     });
   }
 };
+export const { users } = user;

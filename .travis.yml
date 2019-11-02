@@ -7,4 +7,6 @@ cache:
   - node_modules
 script:
   - npm run start:test
+env: 
+  - process.env.SECRET_KEY=secret_key
 after_success: npm run start:coverage

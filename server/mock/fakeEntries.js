@@ -5,7 +5,7 @@ const entries = [
   },
   {
     title: 'my second diary title',
-    description: 'this is the body of my second diary',
+    description: 'this is the body description of my second diary',
   },
 ];
 export default entries;

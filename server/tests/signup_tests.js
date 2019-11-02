@@ -21,8 +21,8 @@ describe('Test POST /api/v1/auth/signup/', () => {
         expect(res.body).to.have.property('status').equals(201).that.is.a('number');
         expect(res.body).to.have.property('message').equals('User created successfully').that.is.a('string');
         expect(res.body).to.have.property('data').that.includes.property('token').that.is.a('string');
+        done();
       });
-    done();
   });
 
   it('should return 409 HTTP status code if user already exists', (done) => {
@@ -41,14 +41,17 @@ describe('Test POST /api/v1/auth/signup/', () => {
     done();
   });
 
-  it('should return 400 HTTP status code if  client error', (done) => {
-    data.junk = 'unwanted input';
+  it('should return 422 HTTP status code for invalid inputs', (done) => {
+    const newUser = {
+      firstName: user.firstName,
+      lastName: user.lastName,
+    };
     chai.request(app)
       .post('/api/v1/auth/signup')
-      .send(data)
+      .send(newUser)
       .end((err, res) => {
-        expect(res.body).to.have.property('status').equals(400).that.is.a('number');
-        expect(res.body).to.have.property('error').that.is.a('string');
+        expect(res.body).to.have.property('status').equals(422).that.is.a('number');
+        expect(res.body).to.have.property('error').equals('invalid input').that.is.a('string');
       });
     done();
   });

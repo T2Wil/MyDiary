@@ -1,12 +1,15 @@
-/* eslint-disable import/prefer-default-export */
 import Entry from '../models/Entry';
+import Storage from '../models/Storage';
 
 const entry = new Entry();
+const storage = new Storage();
 
 export const createEntry = (req, res) => {
-  const { title, description } = req.body;
+  const { userId, title, description } = req.body;
   const createdEntry = entry.createEntry(title, description);
-  if (createdEntry) {
+  const updatedStorage = storage.addEntry(userId, createdEntry);
+
+  if (createdEntry && updatedStorage) {
     createdEntry.message = 'entry successfully created';
     res.status(200).json({
       status: res.statusCode,
@@ -20,15 +23,17 @@ export const createEntry = (req, res) => {
   }
 };
 
-export const modifyEntry = (req, res) => {
+export const updateEntry = (req, res) => {
+  const { userId } = req.body;
   const { entryId } = req.params;
-  const modifications = req.body;
-  const modifiedEntry = entry.editEntry(parseInt(entryId, 10), modifications);
-  if (modifiedEntry) {
-    modifiedEntry.message = 'entry successfully edited';
+  const entryChanges = req.body;
+  entryChanges.id = entryId;
+  const updatedEntry = storage.updateEntry(userId, entryChanges);
+  if (updatedEntry) {
     res.status(200).json({
       status: res.statusCode,
-      data: modifiedEntry,
+      message: 'entry successfully edited',
+      data: updatedEntry,
     });
   } else {
     res.status(404).json({
@@ -39,26 +44,48 @@ export const modifyEntry = (req, res) => {
 };
 
 export const viewEntries = (req, res) => {
-  const entries = entry.getEntries();
-  if (entries) {
+  const { userId } = req.body;
+  const page = req.query.page || 1;
+  const entriesPerPage = 5;
+  let entries = storage.getEntries(userId);
+  const totalEntries = entries.length;
+  const totalPages = Math.ceil(totalEntries / entriesPerPage);
+  const firstEntryIndex = (page * entriesPerPage) - entriesPerPage;
+  const lastEntryIndex = firstEntryIndex + entriesPerPage;
+  try {
+    entries = entries.slice(firstEntryIndex, lastEntryIndex);
+    if (entries) {
+      res.status(200).json({
+        status: res.statusCode,
+        totalEntries,
+        pages: `Page ${page} of ${totalPages}`,
+        data: entries,
+      });
+    } else {
+      res.status(500).json({
+        status: res.statusCode,
+        error: 'Internal server error',
+      });
+    }
+  } catch (err) {
     res.status(200).json({
       status: res.statusCode,
-      data: entries,
-    });
-  } else {
-    res.status(500).json({
-      status: res.statusCode,
-      error: 'Internal server error',
+      userId,
+      data: [],
     });
   }
 };
 export const viewSpecificEntry = (req, res) => {
+  const { userId } = req.body;
   const { entryId } = req.params;
-  const specificEntry = entry.getSpecificEntry(entryId);
+  const specificEntry = storage.getSpecificEntry(userId, entryId);
   if (specificEntry) {
     res.status(200).json({
       status: res.statusCode,
-      data: specificEntry,
+      data: {
+        userId,
+        specificEntry,
+      },
     });
   } else {
     res.status(404).json({
@@ -69,7 +96,8 @@ export const viewSpecificEntry = (req, res) => {
 };
 export const deleteEntry = (req, res) => {
   const { entryId } = req.params;
-  const deletedEntry = entry.deleteEntry(entryId);
+  const { userId } = req.body;
+  const deletedEntry = storage.deleteEntry(userId, entryId);
   if (deletedEntry) {
     res.status(200).json({
       status: res.statusCode,
