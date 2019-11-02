@@ -1,7 +1,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import chaiThings from 'chai-things';
-import fakeEntries from '../mock/fakeEntries';
+import fakeEntries from '../mock/FakeEntries';
 import FakeUser from '../mock/FakeUser';
 import app from '../app';
 
