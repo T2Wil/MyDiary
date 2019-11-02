@@ -63,5 +63,3 @@ typings/
 #package-lock file
 package-lock.json
 
-#process environment variables
-.env
