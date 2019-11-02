@@ -18,7 +18,7 @@ const userCredentials = user.generateFakeUser();
 let headerAuth = '';
 let entryId;
 
-describe('Test POST /api/v1/entries', () => {
+describe('Test GET /api/v1/entries/:entryId', () => {
   before((done) => {
     chai.request(app)
       .post('/api/v1/auth/signup')
