@@ -5,6 +5,7 @@
   "main": "server/server.js",
   "scripts": {
     "start:dev": "nodemon --exec  babel-node -- server/server.js",
+    "start:db": "nodemon --exec  babel-node -- server/database/Database.js",
     "start:server": "babel-node -- server/server.js",
     "start:test": "mocha --require @babel/polyfill --require @babel/register server/tests/* --timeout 10000 --recursive --exit",
     "start:coverage": "nyc npm run start:test && nyc report --reporter=text-lcov | coveralls"
@@ -19,6 +20,7 @@
     "@babel/preset-env": "^7.6.2",
     "@hapi/joi": "^16.1.7",
     "babel-register": "^6.26.0",
+    "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
