@@ -41,8 +41,11 @@ class Database {
 
   async retrieveAllUsers() {
     const conn = await pool.connect();
-    const results = await conn.query(this.usersReq);
-    return results.rows;
+    const usersTableExists = await this.createUsersTable();
+    if (usersTableExists) {
+      const results = await conn.query(this.usersReq);
+      return results.rows;
+    } return false;
   }
 }
 export default Database;
