@@ -1,4 +1,5 @@
 import generateId from 'uuid/v1';
+import hashPassword from '../helpers/hashPassword';
 
 class User {
   constructor() {
@@ -14,7 +15,7 @@ class User {
     this.fName = fName;
     this.lName = lName;
     this.email = email;
-    this.pswd = pswd;
+    this.pswd = hashPassword(pswd);
     this.id = generateId();
     this.users.push(this.getUser());
   }

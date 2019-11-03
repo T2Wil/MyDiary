@@ -1,34 +1,67 @@
 import User from '../models/User';
 import generateToken from '../helpers/generateToken';
+import Database from '../database/Database';
 
 const user = new User();
+const database = new Database();
 
-export const signup = (req, res) => {
+export const signup = async (req, res) => {
   const {
     firstName, lastName, email, password,
   } = req.body;
-  const userExists = user.findUser(email);
-  if (userExists) {
-    res.status(409).json({
-      status: res.statusCode,
-      error: 'Conflict: User Already exists',
-    });
-  } else {
+  const registeredUsers = await database.retrieveAllUsers();
+  if (registeredUsers) {
+    user.users = registeredUsers;
+    const userAlreadyExists = user.findUser(email);
+    if (userAlreadyExists) {
+      res.status(409).json({
+        status: res.statusCode,
+        error: 'Conflict: User Already exists',
+      });
+    } else {
+      user.setUser(firstName, lastName, password, email);
+      const newUser = user.getUser();
+      const userAdded = await database.addNewUser(user);
+      if (userAdded) {
+        const { userId } = newUser;
+        const newToken = generateToken({ userId });
+        res.status(201).json({
+          status: res.statusCode,
+          message: 'User created successfully',
+          data: {
+            token: newToken,
+            userDetails: {
+              FirstName: user.fName,
+              LastName: user.lName,
+              Email: user.email,
+            },
+          },
+        });
+      }
+    }
+  } else if (!registeredUsers) {
     user.setUser(firstName, lastName, password, email);
-    const userId = user.getUser().id;
-    const newToken = generateToken({ userId });
-    res.status(201).json({
-      status: res.statusCode,
-      message: 'User created successfully',
-      data: {
-        token: newToken,
-        userDetails: {
-          FirstName: user.fName,
-          LastName: user.lName,
-          Email: user.email,
-        },
-      },
-    });
+    const newUser = user.getUser();
+    const tableCreated = await database.createUsersTable();
+    if (tableCreated) {
+      const userAdded = await database.addNewUser(user);
+      if (userAdded) {
+        const { userId } = newUser;
+        const newToken = generateToken({ userId });
+        res.status(201).json({
+          status: res.statusCode,
+          message: 'User created successfully',
+          data: {
+            token: newToken,
+            userDetails: {
+              FirstName: user.fName,
+              LastName: user.lName,
+              Email: user.email,
+            },
+          },
+        });
+      }
+    }
   }
 };
 
