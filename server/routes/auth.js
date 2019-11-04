@@ -4,5 +4,5 @@ import { validateSignupParams, validateSigninParams } from '../middleware/valida
 
 const router = express.Router();
 router.post('/signup', validateSignupParams, signup);
-// router.post('/signin', validateSigninParams, signin);
+router.post('/signin', validateSigninParams, signin);
 export default router;
