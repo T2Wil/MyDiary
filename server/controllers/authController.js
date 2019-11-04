@@ -4,7 +4,6 @@ import Database from '../database/Database';
 
 const user = new User();
 const database = new Database();
-
 export const signup = async (req, res) => {
   try {
     const {
@@ -32,13 +31,20 @@ export const signup = async (req, res) => {
       });
     }
   } catch (err) {
-    res.status(409).json({
-      status: res.statusCode,
-      error: 'Conflict: User Already exists',
-    });
+    if (err.routine === '_bt_check_unique') {
+      res.status(409).json({
+        status: res.statusCode,
+        error: 'Conflict: User Already exists',
+      });
+    } else {
+      res.status(500).json({
+        status: res.statusCode,
+        error: err.message,
+      });
+    }
   }
 };
 
-export const signin = (req, res) => {
+export const signin = async (req, res) => {
 
 };

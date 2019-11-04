@@ -17,6 +17,7 @@ class Database {
         password VARCHAR(128) NOT NULL
         )`;
     this.addUserReq = '';
+    this.findUserReq = '';
   }
 
   async createUsersTable() {
