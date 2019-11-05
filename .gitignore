@@ -65,3 +65,6 @@ package-lock.json
 
 #process environment variables
 .env
+
+# vs code settings
+.vscode
