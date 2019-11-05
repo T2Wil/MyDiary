@@ -13,8 +13,8 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
-app.use('/api/v1/auth', authRoutes);
-app.use('/api/v1/entries', entriesRoutes);
-app.use('/api/v1/', swaggerUi.serve, swaggerUi.setup(swaggerJson));
+app.use('/api/v2/auth', authRoutes);
+app.use('/api/v2/entries', entriesRoutes);
+app.use('/api/v2/', swaggerUi.serve, swaggerUi.setup(swaggerJson));
 
 export default app;
