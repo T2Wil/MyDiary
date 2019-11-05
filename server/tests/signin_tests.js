@@ -12,11 +12,11 @@ const { expect } = chai;
 const user = new FakeUser();
 const userCredentials = user.generateFakeUser();
 
-describe('Test POST /api/v1/auth/signin/', () => {
+describe('Test POST /api/v2/auth/signin/', () => {
   let signinData = {};
   before((done) => {
     chai.request(app)
-      .post('/api/v1/auth/signup')
+      .post('/api/v2/auth/signup')
       .send(userCredentials)
       .end(() => {
         signinData = {
@@ -29,7 +29,7 @@ describe('Test POST /api/v1/auth/signin/', () => {
 
   it('should return 200 HTTP status code on success', (done) => {
     chai.request(app)
-      .post('/api/v1/auth/signin')
+      .post('/api/v2/auth/signin')
       .send(signinData)
       .end((err, res) => {
         expect(res.body).to.have.property('status').equals(200).that.is.a('number');
@@ -44,7 +44,7 @@ describe('Test POST /api/v1/auth/signin/', () => {
       password: newUser.password,
     };
     chai.request(app)
-      .post('/api/v1/auth/signin')
+      .post('/api/v2/auth/signin')
       .send(signinData)
       .end((err, res) => {
         expect(res.body).to.have.property('status').equals(401).that.is.a('number');
@@ -58,7 +58,7 @@ describe('Test POST /api/v1/auth/signin/', () => {
       password: newUser.password,
     };
     chai.request(app)
-      .post('/api/v1/auth/signin')
+      .post('/api/v2/auth/signin')
       .send(signinData)
       .end((err, res) => {
         expect(res.body).to.have.property('status').equals(422).that.is.a('number');

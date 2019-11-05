@@ -15,7 +15,7 @@ const data = user.generateFakeUser();
 describe('Test POST /api/v1/auth/signup/', () => {
   it('should return 201 HTTP status code on success', (done) => {
     chai.request(app)
-      .post('/api/v1/auth/signup')
+      .post('/api/v2/auth/signup')
       .send(data)
       .end((err, res) => {
         expect(res.body).to.have.property('status').equals(201).that.is.a('number');
@@ -27,11 +27,11 @@ describe('Test POST /api/v1/auth/signup/', () => {
 
   it('should return 409 HTTP status code if user already exists', (done) => {
     chai.request(app)
-      .post('/api/v1/auth/signup')
+      .post('/api/v2/auth/signup')
       .send(data)
       .end(() => {
         chai.request(app)
-          .post('/api/v1/auth/signup')
+          .post('/api/v2/auth/signup')
           .send(data)
           .end((er, res) => {
             expect(res.body).to.have.property('status').equals(409).that.is.a('number');
@@ -47,7 +47,7 @@ describe('Test POST /api/v1/auth/signup/', () => {
       lastName: user.lastName,
     };
     chai.request(app)
-      .post('/api/v1/auth/signup')
+      .post('/api/v2/auth/signup')
       .send(newUser)
       .end((err, res) => {
         expect(res.body).to.have.property('status').equals(422).that.is.a('number');
