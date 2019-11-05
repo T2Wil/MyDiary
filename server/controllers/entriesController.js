@@ -44,12 +44,18 @@ export const viewEntries = async (req, res) => {
     const firstEntryIndex = (page * entriesPerPage) - entriesPerPage;
     const lastEntryIndex = firstEntryIndex + entriesPerPage;
     entries = entries.slice(firstEntryIndex, lastEntryIndex);
-    res.status(200).json({
+    if (entries.length) {
+      res.status(200).json({
+        status: res.statusCode,
+        totalEntries,
+        pages: `Page ${page} of ${totalPages}`,
+        userId,
+        data: entries,
+      });
+    }
+    res.status(404).json({
       status: res.statusCode,
-      totalEntries,
-      pages: `Page ${page} of ${totalPages}`,
-      userId,
-      data: entries,
+      error: 'Not Found!',
     });
   } catch (err) {
     res.status(500).json({
@@ -62,7 +68,8 @@ export const viewSpecificEntry = async (req, res) => {
 
 };
 
-export const updateEntry = async (req, res) => {
+export const updateEntry = (req, res) => {
+
 };
 
 export const deleteEntry = async (req, res) => {
