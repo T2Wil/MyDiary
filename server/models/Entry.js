@@ -7,7 +7,6 @@ class Entry {
     this.createdOn = new Date();
     this.title = '';
     this.description = '';
-    this.entries = [];
   }
 
   createEntry(title, description) {
@@ -15,7 +14,6 @@ class Entry {
     this.description = description || 'NO DESCRIPTION';
     this.id = generateId();
     this.createdOn = instantTime();
-    this.entries.push(this.getEntry());
     return this.getEntry();
   }
 

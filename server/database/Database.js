@@ -23,6 +23,7 @@ class Database {
         description TEXT NOT NULL,
         createdDate TIMESTAMP
         )`;
+    this.addEntryReq = '';
   }
 
   async createUsersTable() {
@@ -45,6 +46,13 @@ class Database {
     this.findUserReq = `SELECT * FROM 
       users where email = '${email}'`;
     return pool.query(this.findUserReq);
+  }
+
+  async addEntry(userId, entry) {
+    this.addEntryReq = `INSERT INTO
+    entries(userId,entryId,title,description,createdDate)
+    VALUES('${userId}','${entry.id}','${entry.title}','${entry.description}','${entry.createdOn}')`;
+    return pool.query(this.addEntryReq);
   }
 }
 export default Database;
