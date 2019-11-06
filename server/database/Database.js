@@ -24,6 +24,7 @@ class Database {
         createdDate TIMESTAMP
         )`;
     this.addEntryReq = '';
+    this.viewEntriesReq = '';
   }
 
   async createUsersTable() {
@@ -53,6 +54,11 @@ class Database {
     entries(userId,entryId,title,description,createdDate)
     VALUES('${userId}','${entry.id}','${entry.title}','${entry.description}','${entry.createdOn}')`;
     return pool.query(this.addEntryReq);
+  }
+
+  async viewEntries(userId) {
+    this.viewEntries = `SELECT * FROM entries WHERE userid='${userId}'`;
+    return pool.query(this.viewEntries);
   }
 }
 export default Database;
