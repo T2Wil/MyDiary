@@ -1,5 +1,6 @@
 import Entry from '../models/Entry';
 import Database from '../database/Database';
+import handleError from '../helpers/handleError';
 
 const entry = new Entry();
 const database = new Database();
@@ -18,10 +19,7 @@ export const createEntry = async (req, res) => {
       });
     }
   } catch (err) {
-    res.status(500).json({
-      status: res.statusCode,
-      error: err.message,
-    });
+    handleError(res, err);
   }
 };
 
@@ -58,20 +56,78 @@ export const viewEntries = async (req, res) => {
       error: 'Not Found!',
     });
   } catch (err) {
-    res.status(500).json({
-      status: res.statusCode,
-      error: err.message,
-    });
+    handleError(res, err);
   }
 };
 export const viewSpecificEntry = async (req, res) => {
-
+  try {
+    const { userId } = req.body;
+    const { entryId } = req.params;
+    const { rows } = await database.viewSpecificEntry(userId, entryId);
+    let retrievedEntry = rows;
+    retrievedEntry = retrievedEntry.map((entryInfo) => ({
+      createdOn: entryInfo.createddate,
+      entryId: entryInfo.entryid,
+      title: entryInfo.title,
+      description: entryInfo.description,
+    }));
+    if (retrievedEntry.length) {
+      res.status(200).json({
+        status: res.statusCode,
+        data: {
+          userId,
+          entry: retrievedEntry,
+        },
+      });
+    }
+    res.status(404).json({
+      status: res.statusCode,
+      error: 'Not Found!',
+    });
+  } catch (err) {
+    handleError(res, err);
+  }
 };
 
-export const updateEntry = (req, res) => {
-
+export const updateEntry = async (req, res) => {
+  try {
+    const { entryId } = req.params;
+    const entryChanges = req.body;
+    const { rows } = await database.updateEntry(entryId, entryChanges);
+    const updatedEntry = rows[0];
+    if (updatedEntry) {
+      res.status(200).json({
+        status: res.statusCode,
+        message: 'entry successfully edited',
+        data: updatedEntry,
+      });
+    }
+    res.status(404).json({
+      status: res.statusCode,
+      error: 'Not Found!',
+    });
+  } catch (err) {
+    handleError(res, err);
+  }
 };
 
 export const deleteEntry = async (req, res) => {
-
+  try {
+    const { entryId } = req.params;
+    const { rows } = await database.deleteEntry(entryId);
+    const deletedEntry = rows;
+    if (deletedEntry.length) {
+      res.status(204).json({
+        status: res.statusCode,
+        message: 'entry successfully deleted',
+        data: deletedEntry,
+      });
+    }
+    res.status(404).json({
+      status: res.statusCode,
+      error: 'Not Found!',
+    });
+  } catch (err) {
+    handleError(res, err);
+  }
 };

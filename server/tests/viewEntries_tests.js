@@ -33,12 +33,12 @@ describe('Test GET /api/v2/entries', () => {
           });
       });
   });
-  it('should return 500 HTTP status code if internal server errors', (done) => {
+  it('should return 404 HTTP status code if unknown request is passed', (done) => {
     chai.request(app)
       .get('/api/v2/entries/')
       .send({ headerAuth })
       .end((err, res) => {
-        expect(res.body).to.have.property('status').equals(500).that.is.a('number');
+        expect(res.body).to.have.property('status').equals(404).that.is.a('number');
         done();
       });
   });
