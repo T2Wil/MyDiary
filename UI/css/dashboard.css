@@ -43,17 +43,32 @@ header{
     align-items: center;
 }
 .card-title{
-    background: white;
     padding: 1rem;
 }
 .card-title a{
     color: black;
 }
-.card-footer ul{
+.card-text {
     background: white;
+    height: 8rem;
+    padding-top: 4rem;
+}
+.cards .card .icon-small{
+    width: 1.875rem;
+    height: 1.875rem;
+}
+.card .card-footer{
+    height: 3rem;
+}
+.card-footer ul{
     display: flex;
     justify-content: space-between;
     padding: 1rem;
+    position: relative;
+    bottom: 2rem;
+}
+.card:hover{
+    background:rgba(126,71,41,0.5);
 }
 footer{
     position: relative;
@@ -96,5 +111,3 @@ footer{
   }
     
 }
-
-

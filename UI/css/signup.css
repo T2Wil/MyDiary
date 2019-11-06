@@ -90,9 +90,8 @@ footer{
         font-size: 12px;
     }
     .form-signup{
-        height: 80%;
         position: relative;
-        right: 5%;
+        top: 10%;
     }
     .form-signup .title{
         position: relative;

@@ -50,5 +50,9 @@ footer{
     html, body{
         font-size: 10px;
     }
+    .container, .content{
+        position: relative;
+        top: 10%;
+    }
     
 }

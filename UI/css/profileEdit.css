@@ -1,7 +1,7 @@
 @import url("./passwordEdit.css");
 
 .container{
-    margin-top: 5%;
+    margin-top: 2%;
 }
 img{
     height: 15%;
@@ -12,18 +12,22 @@ img{
 .action{
     position: absolute;
     top: 99%;
-    left: 45%;
+    left: 46%;
 }
 @media (max-width: 480px){
     .container{
         position: relative;
         right: 1%;
     }
+    .container .title{
+        position: relative;
+        bottom: 2rem;
+    }
     img{
         height: 15%;
         width: 15%;
         position: relative;
-        left: 63%;
+        left: 60%;
     }
 
 }

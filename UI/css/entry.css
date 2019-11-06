@@ -30,16 +30,16 @@
 .entry .entry-footer ul{
     display: flex;
     justify-content: space-around;
-
 }
-
 footer{
     position: absolute;
     bottom: 0;
     width: 100%;
 }
-
 @media(max-width: 480px){
+    html,body{
+        height: 100vh;
+    }
     .entry{
         margin-top: 15%;
         display: flex;
