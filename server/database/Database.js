@@ -25,6 +25,9 @@ class Database {
         )`;
     this.addEntryReq = '';
     this.viewEntriesReq = '';
+    this.viewSpecificEntryReq = '';
+    this.updateEntryReq = '';
+    this.deleteEtnryReq = '';
   }
 
   async createUsersTable() {
@@ -57,8 +60,30 @@ class Database {
   }
 
   async viewEntries(userId) {
-    this.viewEntries = `SELECT * FROM entries WHERE userid='${userId}'`;
-    return pool.query(this.viewEntries);
+    this.viewEntriesReq = `SELECT * FROM entries WHERE userid='${userId}'`;
+    return pool.query(this.viewEntriesReq);
+  }
+
+  async viewSpecificEntry(userId, entryId) {
+    this.viewSpecificEntryReq = `SELECT * FROM entries 
+    WHERE userid='${userId}' 
+    AND entryid='${entryId}'`;
+    return pool.query(this.viewSpecificEntryReq);
+  }
+
+  async updateEntry(entryId, updates) {
+    this.updateEntryReq = `UPDATE entries 
+    SET title='${updates.title}',description='${updates.description}'
+    WHERE entryid='${entryId}' RETURNING *`;
+
+    return pool.query(this.updateEntryReq);
+  }
+
+  async deleteEntry(entryId) {
+    this.deleteEntryReq = `DELETE FROM entries
+    WHERE entryid='${entryId}' RETURNING *`;
+
+    return pool.query(this.deleteEntryReq);
   }
 }
 export default Database;

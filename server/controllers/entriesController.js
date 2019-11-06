@@ -65,13 +65,92 @@ export const viewEntries = async (req, res) => {
   }
 };
 export const viewSpecificEntry = async (req, res) => {
-
+  try {
+    const { userId } = req.body;
+    const { entryId } = req.params;
+    const { rows } = await database.viewSpecificEntry(userId, entryId);
+    let retrievedEntry = rows;
+    retrievedEntry = retrievedEntry.map((entryInfo) => ({
+      createdOn: entryInfo.createddate,
+      entryId: entryInfo.entryid,
+      title: entryInfo.title,
+      description: entryInfo.description,
+    }));
+    if (retrievedEntry.length) {
+      res.status(200).json({
+        status: res.statusCode,
+        data: {
+          userId,
+          entry: retrievedEntry,
+        },
+      });
+    }
+    res.status(404).json({
+      status: res.statusCode,
+      error: 'Not Found!',
+    });
+  } catch (err) {
+    if (err.routine === 'string_to_uuid') {
+      res.status(404).json({
+        status: res.statusCode,
+        error: 'Not Found!',
+      });
+    }
+    res.status(500).json({
+      status: res.statusCode,
+      error: err,
+    });
+  }
 };
 
-export const updateEntry = (req, res) => {
-
+export const updateEntry = async (req, res) => {
+  try {
+    const { entryId } = req.params;
+    const entryChanges = req.body;
+    const { rows } = await database.updateEntry(entryId, entryChanges);
+    const updatedEntry = rows[0];
+    res.status(200).json({
+      status: res.statusCode,
+      message: 'entry successfully edited',
+      data: updatedEntry,
+    });
+  } catch (err) {
+    if (err.routine === 'string_to_uuid') {
+      res.status(404).json({
+        status: res.statusCode,
+        error: 'Entry not found',
+      });
+    } else {
+      res.status(500).json({
+        status: res.statusCode,
+        error: err.message,
+      });
+    }
+  }
 };
 
 export const deleteEntry = async (req, res) => {
-
+  try {
+    const { entryId } = req.params;
+    const { rows } = await database.deleteEntry(entryId);
+    const deletedEntry = rows[0];
+    if (deletedEntry) {
+      res.status(204).json({
+        status: res.statusCode,
+        message: 'entry successfully deleted',
+        data: deletedEntry,
+      });
+    }
+  } catch (err) {
+    if (err.routine === 'string_to_uuid') {
+      res.status(404).json({
+        status: res.statusCode,
+        error: 'Entry Not Found!',
+      });
+    }
+    res.status(500).json({
+      status: res.statusCode,
+      error: err.message,
+    });
+  }
 };
