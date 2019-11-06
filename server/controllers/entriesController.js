@@ -1,5 +1,6 @@
 import Entry from '../models/Entry';
 import Database from '../database/Database';
+import handleError from '../helpers/handleError';
 
 const entry = new Entry();
 const database = new Database();
@@ -18,10 +19,7 @@ export const createEntry = async (req, res) => {
       });
     }
   } catch (err) {
-    res.status(500).json({
-      status: res.statusCode,
-      error: err.message,
-    });
+    handleError(res, err);
   }
 };
 
@@ -58,10 +56,7 @@ export const viewEntries = async (req, res) => {
       error: 'Not Found!',
     });
   } catch (err) {
-    res.status(500).json({
-      status: res.statusCode,
-      error: err.message,
-    });
+    handleError(res, err);
   }
 };
 export const viewSpecificEntry = async (req, res) => {
@@ -90,16 +85,7 @@ export const viewSpecificEntry = async (req, res) => {
       error: 'Not Found!',
     });
   } catch (err) {
-    if (err.routine === 'string_to_uuid') {
-      res.status(404).json({
-        status: res.statusCode,
-        error: 'Not Found!',
-      });
-    }
-    res.status(500).json({
-      status: res.statusCode,
-      error: err,
-    });
+    handleError(res, err);
   }
 };
 
@@ -109,23 +95,19 @@ export const updateEntry = async (req, res) => {
     const entryChanges = req.body;
     const { rows } = await database.updateEntry(entryId, entryChanges);
     const updatedEntry = rows[0];
-    res.status(200).json({
-      status: res.statusCode,
-      message: 'entry successfully edited',
-      data: updatedEntry,
-    });
-  } catch (err) {
-    if (err.routine === 'string_to_uuid') {
-      res.status(404).json({
+    if (updatedEntry) {
+      res.status(200).json({
         status: res.statusCode,
-        error: 'Entry not found',
-      });
-    } else {
-      res.status(500).json({
-        status: res.statusCode,
-        error: err.message,
+        message: 'entry successfully edited',
+        data: updatedEntry,
       });
     }
+    res.status(404).json({
+      status: res.statusCode,
+      error: 'Not Found!',
+    });
+  } catch (err) {
+    handleError(res, err);
   }
 };
 
@@ -133,24 +115,19 @@ export const deleteEntry = async (req, res) => {
   try {
     const { entryId } = req.params;
     const { rows } = await database.deleteEntry(entryId);
-    const deletedEntry = rows[0];
-    if (deletedEntry) {
+    const deletedEntry = rows;
+    if (deletedEntry.length) {
       res.status(204).json({
         status: res.statusCode,
         message: 'entry successfully deleted',
         data: deletedEntry,
       });
     }
-  } catch (err) {
-    if (err.routine === 'string_to_uuid') {
-      res.status(404).json({
-        status: res.statusCode,
-        error: 'Entry Not Found!',
-      });
-    }
-    res.status(500).json({
+    res.status(404).json({
       status: res.statusCode,
-      error: err.message,
+      error: 'Not Found!',
     });
+  } catch (err) {
+    handleError(res, err);
   }
 };
