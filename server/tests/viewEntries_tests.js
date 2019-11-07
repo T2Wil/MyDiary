@@ -1,35 +1,53 @@
-/* eslint-disable no-unused-expressions */
-/* eslint-disable no-undef */
-
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import chaiThings from 'chai-things';
 import fakeEntries from '../mock/fakeEntries';
 import app from '../app';
+import FakeUser from '../mock/FakeUser';
 
 process.env.NODE_ENV = 'test';
 
 
 chai.use(chaiHttp);
 chai.use(chaiThings);
-const { expect } = chai;
 
-describe('Test GET /api/v1/entries/', () => {
-  const data = fakeEntries[0];
-  it('should return 200 HTTP status code if entries successfully retrieved', (done) => {
+const { expect } = chai;
+const user = new FakeUser();
+const entry = fakeEntries[0];
+const userCredentials = user.generateFakeUser();
+let headerAuth = '';
+
+describe('Test GET /api/v2/entries', () => {
+  before((done) => {
     chai.request(app)
-      .post('/api/v1/entries/')
-      .send(data)
-      .end(() => {
+      .post('/api/v2/auth/signup')
+      .send(userCredentials)
+      .end((err, res) => {
+        headerAuth = res.body.data.token;
+        entry.headerAuth = headerAuth;
         chai.request(app)
-          .get('/api/v1/entries/')
-          .end((er, resp) => {
-            expect(resp.body).to.have.property('status').equals(200).that.is.a('number');
-            expect(resp.body).to.have.property('data').that.is.an('array');
-            expect(resp.body.data[0]).to.have.property('id').that.is.a('number');
-            expect(resp.body.data[0]).to.have.property('title').that.is.a('string');
-            expect(resp.body.data[0]).to.have.property('description').that.is.a('string');
+          .post('/api/v2/entries/')
+          .send(entry)
+          .end(() => {
+            done();
           });
+      });
+  });
+  it('should return 404 HTTP status code if unknown request is passed', (done) => {
+    chai.request(app)
+      .get('/api/v2/entries/')
+      .send({ headerAuth })
+      .end((err, res) => {
+        expect(res.body).to.have.property('status').equals(404).that.is.a('number');
+        done();
+      });
+  });
+  it('should return 401 HTTP status code if no token is provided', (done) => {
+    chai.request(app)
+      .get('/api/v2/entries/')
+      .end((err, res) => {
+        expect(res.body).to.have.property('status').equals(401).that.is.a('number');
+        expect(res.body).to.have.property('error');
         done();
       });
   });

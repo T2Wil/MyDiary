@@ -4,10 +4,11 @@
   "description": "MyDiary is an online journal where users can pen down their thoughts and feelings",
   "main": "server/server.js",
   "scripts": {
-    "start:dev": "nodemon --exec babel-node -- server/server.js",
+    "start:dev": "nodemon --exec  babel-node -- server/server.js",
+    "start:db": "nodemon --exec  babel-node -- server/database/Database.js",
     "start:server": "babel-node -- server/server.js",
     "start:test": "mocha --require @babel/polyfill --require @babel/register server/tests/* --timeout 10000 --recursive --exit",
-    "start:coverage": "nyc npm run start:test && nyc report --reporter=text-lcov | coveralls"
+    "start:coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "author": "T. William",
   "license": "ISC",
@@ -19,12 +20,14 @@
     "@babel/preset-env": "^7.6.2",
     "@hapi/joi": "^16.1.7",
     "babel-register": "^6.26.0",
+    "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "chai-things": "^0.2.0",
     "cors": "^2.8.5",
     "coveralls": "^3.0.7",
+    "dotenv": "^8.2.0",
     "esm": "^3.2.25",
     "express": "^4.17.1",
     "faker": "^4.1.0",
@@ -32,7 +35,9 @@
     "mocha": "^6.2.1",
     "nodemon": "^1.19.3",
     "nyc": "^14.1.1",
-    "swagger-ui-express": "^4.1.2"
+    "pg": "^7.12.1",
+    "swagger-ui-express": "^4.1.2",
+    "uuid": "^3.3.3"
   },
   "devDependencies": {
     "babel-install": "2.1.0",
