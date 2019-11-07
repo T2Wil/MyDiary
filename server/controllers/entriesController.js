@@ -27,7 +27,7 @@ export const viewEntries = async (req, res) => {
   try {
     const { userId } = req.body;
     const page = req.query.page || 1;
-    const entriesPerPage = 5;
+    const entriesPerPage = 20;
     const { rows } = await database.viewEntries(userId);
     let entries = rows;
     entries = entries.map((savedEntry) => ({
@@ -42,6 +42,7 @@ export const viewEntries = async (req, res) => {
     const firstEntryIndex = (page * entriesPerPage) - entriesPerPage;
     const lastEntryIndex = firstEntryIndex + entriesPerPage;
     entries = entries.slice(firstEntryIndex, lastEntryIndex);
+    entries = entries.reverse();
     if (entries.length) {
       res.status(200).json({
         status: res.statusCode,

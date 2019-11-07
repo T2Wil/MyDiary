@@ -3,11 +3,11 @@
   
   "info": {
     "description": "MyDiary is an online journal where users can pen down their thoughts and feelings.",
-    "version": "1.0.0",
-    "title": "MyDairy"
+    "version": "2.0.0",
+    "title": "MyDiary"
   },
   "host": "mydiary-app-api.herokuapp.com",
-  "basePath": "/api/v1/",
+  "basePath": "/api/v2/",
   "tags": [
     {
       "name": "Auth",
@@ -51,11 +51,11 @@
           "201": {
             "description": "User created successfully"
           },
-          "400": {
-            "description": "Client Error"
+          "500": {
+            "description": "Internal server Error"
           },
           "409": {
-            "description": "Conflict: User Already exists"
+            "description": "Found Duplicates!"
           }
         }
       }
@@ -88,8 +88,11 @@
           "200": {
             "description": "User successfully logged in"
           },
-          "400": {
-            "description": "Invalid credentials"
+          "401": {
+            "description": "Invalid credentials/Unathorized"
+          },
+          "500": {
+            "description": "Internal server Error"
           }
         }
       }
@@ -124,11 +127,17 @@
           }
         ],
         "responses": {
-          "200": {
+          "201": {
             "description": "entry successfully created"
           },
-          "400": {
-            "description": "Empty request"
+          "401": {
+            "description": "Invalid token"
+          },
+          "422": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       },
@@ -149,9 +158,25 @@
         "produces": [
           "application/json"
         ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "Page number ",
+            "schema": {
+              "$ref": "#/definitions/Page"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "entries successfully retrieved"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -178,8 +203,8 @@
           {
             "in": "path",
             "name": "entryId",
-            "type": "integer",
-            "description": "An id of an entry to be retrieved",
+            "type": "string",
+            "description": "A uuid of an entry to be retrieved",
             "required": true
           }
         ],
@@ -188,7 +213,10 @@
             "description": "entry successfully retrieved"
           },
           "404": {
-            "description": "Entry doesn't exists"
+            "description": "Entry Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error!"
           }
         }
       },
@@ -213,8 +241,8 @@
           {
             "in": "path",
             "name": "entryId",
-            "type": "integer",
-            "description": "Id of an entry and updated entry object that needs to be added as an update",
+            "type": "string",
+            "description": "uuid of an entry and updated entry object that needs to be added as an update",
             "required": true
           },
           {
@@ -229,10 +257,17 @@
         ],
         "responses": {
           "200": {
-            "description": "entry successfully edited"
+            "description": "entry successfully updated"
           },
           "404": {
-            "description": "Entry doesn't exists"
+            "description": "Entry Not Found"
+          },
+          "422": {
+            "description": "Invalid inputs"
+          },
+
+          "500": {
+            "description": "Internal Server Error!"
           }
         }
       },
@@ -257,18 +292,21 @@
           {
             "in": "path",
             "name": "entryId",
-            "type": "integer",
-            "description": "Id of an entry to be deleted",
+            "type": "string",
+            "description": "uuid of an entry to be deleted",
             "required": true
 
           }
         ],
         "responses": {
-          "200": {
+          "204": {
             "description": "entry successfully deleted"
           },
           "404": {
-            "description": "Entry doesn't exists"
+            "description": "Entry Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error!"
           }
         }
       }
@@ -288,8 +326,7 @@
         "firstName",
         "lastName",
         "email",
-        "password",
-        "repeatPassword"
+        "password"
     ],
       "properties": {
         "firstName": {
@@ -302,9 +339,6 @@
           "type": "string"
         },
         "password": {
-          "type": "string"
-        },
-        "repeatPassword": {
           "type": "string"
         }
       }
@@ -336,6 +370,14 @@
             },
             "description": {
                 "type": "string"
+            }
+        }
+    },
+    "Page":{
+        "type": "object",
+        "properties": {
+            "page": {
+                "type": "integer"
             }
         }
     }

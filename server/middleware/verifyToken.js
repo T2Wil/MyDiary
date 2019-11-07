@@ -5,17 +5,13 @@ const verifyToken = async (req, res, next) => {
     let token;
     if (process.env.NODE_ENV === 'test') {
       token = req.body.headerAuth;
-    } else {
-      const headerAuth = req.headers.authorization || req.headers.Authorization;
-      if (!headerAuth) {
-        res.status(401).json({
-          status: 401,
-          error: 'no token provided!',
-        });
-        return;
-      }
-      const headerAuthArray = headerAuth.split(' ');
-      [, token] = headerAuthArray;
+    } else { token = req.headers.token; }
+    if (!token) {
+      res.status(401).json({
+        status: 401,
+        error: 'no token provided!',
+      });
+      return;
     }
     const decoded = await (jwt.verify(token, process.env.SECRET_KEY));
     if (!decoded) {
