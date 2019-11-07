@@ -79,20 +79,14 @@ p{
 .form-signup p a{
     color: #7E4729;
 }
-footer{
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-}
 
 @media(max-width:480px){
     html{
         font-size: 12px;
     }
     .form-signup{
-        height: 80%;
         position: relative;
-        right: 5%;
+        top: 10%;
     }
     .form-signup .title{
         position: relative;

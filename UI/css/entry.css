@@ -1,11 +1,12 @@
 @import url("./dashboard.css");
 
 .entry{
-    margin-top: 2%;
+    margin-top: 4%;
     display: flex;
     flex-direction: column;
     position: relative;
     left: 8%;
+    height: 70%;
 }
 .entry .entry-title{
     color: black;
@@ -30,16 +31,16 @@
 .entry .entry-footer ul{
     display: flex;
     justify-content: space-around;
-
 }
-
 footer{
     position: absolute;
     bottom: 0;
     width: 100%;
 }
-
 @media(max-width: 480px){
+    html,body{
+        height: 100vh;
+    }
     .entry{
         margin-top: 15%;
         display: flex;
