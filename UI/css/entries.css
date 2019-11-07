@@ -5,10 +5,16 @@ html,body{
 }
 .content{
     position: absolute;
-    top: 40%;
+    top: 20%;
     background: white;
     width:fit-content;
     left: 37%;
+    height: 40%;
+}
+footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
 @media (max-width: 480px){
     header{
@@ -17,7 +23,7 @@ html,body{
     }
     .content{
         position: absolute;
-        left: 20%;
+        left: 23%;
     }
     
 }
