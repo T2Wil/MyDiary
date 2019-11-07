@@ -79,11 +79,6 @@ p{
 .form-signup p a{
     color: #7E4729;
 }
-footer{
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-}
 
 @media(max-width:480px){
     html{

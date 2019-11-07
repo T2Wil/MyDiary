@@ -2,6 +2,7 @@
 
 .container{
     margin-top: 2%;
+    height: 80%;
 }
 img{
     height: 15%;
@@ -17,11 +18,11 @@ img{
 @media (max-width: 480px){
     .container{
         position: relative;
-        right: 1%;
+        top: 5%;
+        right: 5%;
     }
     .container .title{
         position: relative;
-        bottom: 2rem;
     }
     img{
         height: 15%;
